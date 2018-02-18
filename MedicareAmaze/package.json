@@ -1,0 +1,12 @@
+{
+  "name": "medicare-amaze",
+  "version": "0.0.0",
+  "description": "MedicareAmaze",
+  "main": "app.js",
+  "author": {
+    "name": "srangaiah"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.87"
+  }
+}
