@@ -1,0 +1,36 @@
+{
+  "id": "Welcome-non-luis-0001",
+  "type": "sequence",
+  "steps": [
+
+    {
+      "id": "myOtherCard",
+      "type": "heroCard",
+      "data": {
+        "title": "Space Needle",
+        "text": "The <b>Space Needle</b> is an observation tower in Seattle, Washington, a landmark of the Pacific Northwest, and an icon of Seattle.",
+        "images": [
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Seattlenighttimequeenanne.jpg/320px-Seattlenighttimequeenanne.jpg"
+        ],
+        "buttons": [
+          {
+            "label": "I want to shop for a medicare plan",
+            "action": "imBack",
+            "value": "I want to enroll in medicare"
+          },
+          {
+            "label": "I want a mediare plan recommendation",
+            "action": "imBack",
+            "value": "I want to enroll in medicare"
+          },
+          {
+            "label": "I wantto talk to medicare advisor",
+            "action": "imBack",
+            "value": "help"
+          }
+        ]
+      }
+    }
+
+  ]
+}

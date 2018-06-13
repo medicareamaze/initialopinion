@@ -1,0 +1,102 @@
+﻿{
+  "id": "enroll-0001",
+  "version": "112",
+  "type": "sequence",
+  "steps": [
+    {
+      "id": "myAdaptiveCard",
+      "type": "adaptive",
+      "data": {
+        "type": "message",
+        "text": "Plain text is ok, but sometimes I long for more...",
+        "attachments": [
+          {
+            "content": {
+              "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+              "type": "AdaptiveCard",
+              "version": "1.0",
+              "body": [
+                {
+                  "type": "Container",
+                  "items": [
+                    {
+                      "type": "ColumnSet",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "auto",
+                          "items": [
+                            {
+                              "type": "Image",
+                              "url": "https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg",
+                              "size": "small",
+                              "style": "person"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "Kavitha Channaiah",
+                              "weight": "bolder",
+                              "wrap": true
+                            },
+                            {
+                              "type": "TextBlock",
+                              "spacing": "none",
+                              "text": "Created {{DATE(2017-02-14T06:08:39Z, SHORT)}}",
+                              "isSubtle": true,
+                              "wrap": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Container",
+                  "items": [
+                    {
+                      "type": "TextBlock",
+                      "text": "Hi There!",
+                      "weight": "bolder",
+                      "size": "medium"
+                    },
+                    {
+                      "type": "TextBlock",
+                      "text": "Medicare is a Maze. Whether you are joining medicare for the first time or changing your existing medicare plan - the complex eligibility criteria and  hundereds of available options makes it a very difficult experience",
+                      "isSubtle": true,
+                      "wrap": true
+                    },
+                    {
+                      "type": "TextBlock",
+                      "text": "Thats why I created my bot - MedicareAmaze. You can chat with MedicareAmaze and it will walk you through the various medicare options, eligibility criteria, plan selections and recommend a plan that is tailored to meet your needs and budget.",
+                      "isSubtle": true,
+                      "wrap": true
+                    },
+                    {
+                      "type": "TextBlock",
+                      "text": "Who can I help? ",
+                      "weight": "bolder",
+                      "size": "large"
+                    },
+                    {
+                      "type": "TextBlock",
+                      "text": "you can just type in phrases like 'I want to enroll in medicare advantage' , 'I want to find an agent' or 'I want to learn about Medigap' ",
+                      "isSubtle": true,
+                      "wrap": true
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

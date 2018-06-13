@@ -1,0 +1,26 @@
+{
+  "dialogs": [
+
+    {
+      "path": "/Welcome-medicanja",
+      "regex": "^leadluis001",
+      "scenario": "Welcome-medicanja"
+    },
+
+    {
+      "path": "/Welcome-luis-0002",
+      "regex": "^leadluis002",
+      "scenario": "Welcome-luis-0002"
+    },
+    {
+      "path": "/Welcome-non-luis-0002",
+      "regex": "^leadnonluis002",
+      "scenario": "Welcome-non-luis-0002"
+    },
+    {
+      "path": "/diagnosis",
+      "regex": "^diagnosis",
+      "scenario": "diagnosis"
+    }
+  ]
+}

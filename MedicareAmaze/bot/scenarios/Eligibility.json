@@ -1,0 +1,498 @@
+{
+  "id": "Eligibility",
+  "type": "sequence",
+  "steps": [
+    {
+      "id": "Eligibility001",
+      "type": "adaptive",
+      "data": {
+        "type": "message",
+
+        "attachments": [
+          {
+            "content": {
+              "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+              "type": "AdaptiveCard",
+              "version": "1.0",
+              "body": [
+
+                "content",
+                {
+                  "type": "Container",
+                  "items": [
+                    {
+                      "type": "TextBlock",
+                      "text": " **Are you enrolled in Medicare?** ",
+                      "wrap": true
+                    },
+
+                    {
+                      "type": "Image",
+                      "size": "stretch",
+                      "url": "https://www.medicare.gov/medicare-images/JohnSmithWatermarkCards.jpg"
+
+                    },
+
+                    {
+                      "type": "Input.ChoiceSet",
+                      "id": "medicareEnrollment",
+                      "style": "expanded",
+                      "isMultiSelect": false,
+                      "value": "1",
+                      "choices": [
+                        {
+                          "title": "I am Enrolled in both parts A & B",
+                          "wrap": true,
+                          "value": "AandB"
+                        },
+                        {
+                          "title": "I am Enrolled in part A only",
+                          "wrap": true,
+                          "value": "A"
+                        },
+                        {
+                          "title": "I am Enrolled in part B only",
+                          "wrap": true,
+                          "value": "B"
+                        },
+                        {
+                          "title": "I am not enrolled",
+                          "wrap": true,
+                          "value": "None"
+                        }
+                      ]
+                    }
+
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "title": "Submit"
+
+
+                }
+              ]
+            }
+          }
+
+        ]
+      }
+    },
+
+    {
+      "id": "finalizeEligibility",
+      "type": "handler",
+      "data": { "name": "eligibility.js" }
+    },
+
+    {
+      "type": "sequence",
+      "scenarios": [
+        {
+          "condition": "medicareEnrollment == 'AandB'",
+          "steps": [
+            {
+              "id": "EligibilityABEnrollment",
+              "type": "adaptive",
+              "data": {
+                "type": "message",
+                "attachments": [
+                  {
+                    "contentType": "application/vnd.microsoft.card.adaptive",
+
+                    "content": {
+                      "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                      "type": "AdaptiveCard",
+                      "version": "1.0",
+                      "body": [
+
+                        {
+                          "type": "Container",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "**Great! Please enter your Part A & B enrollment dates. They can be found on your medicare card**",
+
+                              "wrap": true
+                            },
+                            {
+                              "type": "Image",
+                              "size": "stretch",
+                              "url": "https://www.medicare.gov/medicare-images/JohnSmithWatermarkCards.jpg"
+
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "Part A enrollment date",
+                              "isSubtle": true,
+                              "wrap": true
+                            },
+                            {
+                              "type": "Input.Date",
+                              "id": "partAEnrollmentDate",
+                              "placeholder": "Part A Enrollment Date",
+                              "value": "<%partAEnrollment%>"
+                            },
+
+                            {
+                              "type": "TextBlock",
+                              "text": "Part B enrollment date",
+                              "isSubtle": true,
+                              "wrap": true
+                            },
+                            {
+                              "type": "Input.Date",
+                              "id": "partBEnrollmentDate",
+                              "placeholder": "Part B Enrollment Date",
+                              "value": "<%partAEnrollmen%>"
+                            },
+
+                            {
+                              "type": "TextBlock",
+                              "text": "**Are you currently enrolled in any of the following plans?**",
+                              "isSubtle": true,
+                              "wrap": true
+                            },
+                            {
+                              "type": "Input.ChoiceSet",
+                              "id": "MAMSChoiceSet",
+                              "style": "expanded",
+                              "isMultiSelect": false,
+                              "value": "1",
+                              "choices": [
+                                {
+                                  "title": "Medicare Advantage",
+                                  "wrap": true,
+                                  "value": "MA"
+                                },
+                                {
+                                  "title": "Medigap",
+                                  "wrap": true,
+                                  "value": "MS"
+                                },
+                                {
+                                  "title": "Prescription drug plan ",
+                                  "wrap": true,
+                                  "value": "PDP"
+                                },
+                                {
+                                  "title": "None of the above",
+                                  "wrap": true,
+                                  "value": "None"
+                                }
+
+                              ]
+                            }
+
+
+
+
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": "Action.Submit",
+                          "title": "Submit"
+
+
+                        }
+                      ]
+
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "type": "sequence",
+      "scenarios": [
+        {
+          "condition": "medicareEnrollment == 'A'",
+          "steps": [
+            {
+              "id": "EligibilityAEnrollment",
+              "type": "adaptive",
+              "data": {
+                "type": "message",
+                "attachments": [
+                  {
+                    "contentType": "application/vnd.microsoft.card.adaptive",
+
+                    "content": {
+                      "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                      "type": "AdaptiveCard",
+                      "version": "1.0",
+                      "body": [
+
+                        {
+                          "type": "Container",
+                          "items": [
+                            
+
+                            {
+                              "type": "Image",
+                              "size": "stretch",
+                              "url": "https://www.medicare.gov/medicare-images/JohnSmithWatermarkCards.jpg"
+
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "**Please enter your Part A enrollment date. This can be found on your medicare card.**",
+                              "isSubtle": true,
+                              "wrap": true
+                            },
+                            {
+                              "type": "Input.Date",
+                              "id": "partAEnrollmentDate",
+                              "placeholder": "Part A Enrollment Date",
+                              "value": "<%partAEnrollment%>"
+                            },
+
+                            {
+                              "type": "TextBlock",
+                              "text": "**Are you currently enrolled in a Prescription Drug Plan?**",
+                              "isSubtle": true,
+                              "wrap": true
+                            },
+                            {
+                              "type": "Input.ChoiceSet",
+                              "id": "EligibilityAChoiceSet",
+                              "style": "expanded",
+                              "isMultiSelect": false,
+                              "value": "1",
+                              "choices": [
+
+                                {
+                                  "title": "Yes",
+                                  "wrap": true,
+                                  "value": "PDP"
+                                },
+                                {
+                                  "title": "No",
+                                  "wrap": true,
+                                  "value": "None"
+                                }
+                              ]
+                            }
+
+                          ]
+                        }
+
+                      ],
+                      "actions": [
+                        {
+                          "type": "Action.Submit",
+                          "title": "Submit"
+
+
+                        }
+                      ]
+                    }
+
+
+                  }
+                ]
+
+              }
+            }
+
+
+          ]
+        }
+      ]
+
+    },
+
+    {
+      "type": "sequence",
+      "scenarios": [
+        {
+          "condition": "medicareEnrollment == 'B'",
+          "steps": [
+            {
+              "id": "EligibilityBEnrollment",
+              "type": "adaptive",
+              "data": {
+                "type": "message",
+                "attachments": [
+                  {
+                    "contentType": "application/vnd.microsoft.card.adaptive",
+
+                    "content": {
+                      "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                      "type": "AdaptiveCard",
+                      "version": "1.0",
+                      "body": [
+
+                        {
+                          "type": "Container",
+                          "items": [
+                            
+
+                            {
+                              "type": "Image",
+                              "size": "stretch",
+                              "url": "https://www.medicare.gov/medicare-images/JohnSmithWatermarkCards.jpg"
+
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "**Please enter your Part B enrollment date. This can be found on your medicare card.**",
+                              "isSubtle": true,
+                              "wrap": true
+                            },
+                            {
+                              "type": "Input.Date",
+                              "id": "partBEnrollmentDate",
+                              "placeholder": "Part B Enrollment Date",
+                              "value": "<%partBEnrollment%>"
+                            },
+
+                            {
+                              "type": "TextBlock",
+                              "text": "**Are you currently enrolled in a Prescription Drug Plan?**",
+                              "isSubtle": true,
+                              "wrap": true
+                            },
+                            {
+                              "type": "Input.ChoiceSet",
+                              "id": "EligibilityBChoiceSet",
+                              "style": "expanded",
+                              "isMultiSelect": false,
+                              "value": "1",
+                              "choices": [
+
+                                {
+                                  "title": "Yes",
+                                  "wrap": true,
+                                  "value": "PDP"
+                                },
+                                {
+                                  "title": "No",
+                                  "wrap": true,
+                                  "value": "None"
+                                }
+                              ]
+                            }
+
+                          ]
+                        }
+
+                      ],
+                      "actions": [
+                        {
+                          "type": "Action.Submit",
+                          "title": "Submit"
+
+
+                        }
+                      ]
+                    }
+
+
+                  }
+                ]
+
+              }
+            }
+
+
+          ]
+        }
+      ]
+
+    },
+
+    {
+      "type": "sequence",
+      "scenarios": [
+        {
+          "condition": "medicareEnrollment == 'None'",
+          "steps": [
+            {
+              "id": "EligibilityNext3MonthsEnrollment",
+              "type": "adaptive",
+              "data": {
+                "type": "message",
+                "attachments": [
+                  {
+                    "contentType": "application/vnd.microsoft.card.adaptive",
+
+                    "content": {
+                      "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                      "type": "AdaptiveCard",
+                      "version": "1.0",
+                      "body": [
+
+                        {
+                          "type": "Container",
+                          "items": [
+
+                            {
+                              "type": "TextBlock",
+                              "text": "**Ok. Are you planning on enrolling in medicare within the next 3 months?**",
+                              "isSubtle": true,
+                              "wrap": true
+                            },
+
+                            {
+                              "type": "Input.ChoiceSet",
+                              "id": "EligibilityNext3MonthChoiceSet",
+                              "style": "expanded",
+                              "isMultiSelect": false,
+                              "value": "1",
+                              "choices": [
+                                {
+                                  "title": "Yes",
+                                  "wrap": true,
+                                  "value": "Yes"
+                                },
+                                {
+                                  "title": "No",
+                                  "wrap": true,
+                                  "value": "No"
+                                }
+                              ]
+                            }
+
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": "Action.Submit",
+                          "title": "Submit"
+
+
+                        }
+                      ]
+                    }
+
+
+                  }
+                ]
+
+              }
+            }
+
+
+          ]
+        }
+      ]
+
+    }
+
+
+  ]
+ }
+
+  
+

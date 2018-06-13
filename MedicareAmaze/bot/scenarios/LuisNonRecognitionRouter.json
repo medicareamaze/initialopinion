@@ -1,0 +1,62 @@
+{
+  "id": "LuisNonRecognitionRouter",
+  "type": "sequence",
+  "steps": [
+    {
+      "id": "LuisNonRecognitionRouter01",
+      "type": "sequence",
+      "steps": [
+        {
+          "id": "getExperimentVariable001",
+          "type": "getExperimentVariable",
+          "data": {
+            "ExperimentName": "LUISNoRecognitionExperiment",
+            "VariableName": "retryLUIS"
+          }
+        },
+        {
+          "type": "sequence",
+          "scenarios": [
+            {
+              "condition": "retryLUIS == 'yes'",
+              "steps": [
+                {
+                  "id": "luisretry.yes",
+                  "type": "prompt",
+                  "data": {
+                    "type": "text",
+                    "text": "I did not get that? Can you please restate your yes request?"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "sequence",
+          "scenarios": [
+            {
+              "condition": "retryLUIS == 'no'",
+              "steps": [
+                {
+                  "id": "luisretry.no",
+                  "type": "prompt",
+                  "data": {
+                    "type": "text",
+                    "text": "I did not understand. Can you please restate your no request?"
+                  }
+                }
+
+
+              ]
+            }
+          ]
+        }
+
+      ]
+
+    }
+
+  ]
+
+}

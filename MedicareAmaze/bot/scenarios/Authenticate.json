@@ -1,0 +1,143 @@
+{
+  "id": "Authenticate",
+  "version": "102",
+  "type": "sequence",
+  "steps": [
+    {
+      "id": "myAdaptiveCard",
+      "type": "adaptive",
+      "data": {
+        "type": "message",
+        "attachments": [
+          {
+            "content": {
+              "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+              "type": "AdaptiveCard",
+              "version": "1.0",
+              "body": [
+                {
+                  "type": "Container",
+                  "items": [
+
+                    {
+                      "type": "ColumnSet",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "auto",
+                          "items": [
+                            {
+                              "type": "Image",
+                              "url": "https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg",
+                              "size": "small",
+                              "style": "person"
+                            }
+
+                          ]
+                        },
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "Kavitha Channaiah",
+                              "weight": "bolder",
+                              "wrap": true
+                            },
+                            {
+                              "type": "TextBlock",
+                              "spacing": "none",
+                              "text": "Medicare advisor",
+                              "isSubtle": true,
+                              "wrap": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Container",
+                  "items": [
+
+                    {
+                      "type": "TextBlock",
+                      "text": "Ok! Enter yur email,date of birth and zip code. I will use this to determine the best plans available and email a copy of my recommendation to you",
+                      "weight": "bolder",
+                      "size": "large",
+                      "wrap": true
+                    },
+
+
+
+                    {
+                      "type": "TextBlock",
+                      "text": "Your email",
+                      "wrap": true
+                    },
+                    {
+                      "type": "Input.Text",
+                      "id": "email",
+                      "placeholder": "youremail@example.com",
+                      "style": "email",
+                      "value": "<%email%>"
+                    },
+                    {
+                      "type": "TextBlock",
+                      "text": "Date of birth"
+                    },
+                    {
+                      "type": "Input.Date",
+                      "id": "dateOfBirth",
+                      "placeholder": "Date of Birth",
+                      "value": "<%dateOfBirth%>"
+                    },
+                    {
+                      "type": "TextBlock",
+                      "text": "Zipcode (Residential)"
+                    },
+                    {
+                      "type": "Input.Number",
+                      "id": "zip",
+                      "placeholder": "92782",
+                      "value": "<%zip%>"
+                    }
+
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "title": "Submit"
+                  
+
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+
+
+
+    {
+      "id": "finalize",
+      "type": "handler",
+      "data": { "name": "save-lead-info.js" }
+    },
+    {
+      "subScenario": "Eligibility"
+    }
+
+
+
+
+
+
+
+  ]
+}

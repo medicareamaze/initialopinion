@@ -1,0 +1,299 @@
+{
+  "id": "welcomeAndLead",
+  "type": "sequence",
+  "steps": [
+    {
+      "id": "myCarousel",
+      "type": "carousel",
+      "data": {
+        "text": "Can you see a carousel of hero cards bellow?",
+        "cards": [
+          {
+            "id": "myOtherCard",
+            "type": "heroCard",
+            "data": {
+              "title": "Space Needle",
+              "text": "The <b>Space Needle</b> is an observation tower in Seattle, Washington, a landmark of the Pacific Northwest, and an icon of Seattle.",
+              "images": [
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Seattlenighttimequeenanne.jpg/320px-Seattlenighttimequeenanne.jpg"
+              ],
+              "buttons": [
+                {
+                  "label": "Wikipedia",
+                  "action": "openUrl",
+                  "value": "https://en.wikipedia.org/wiki/Space_Needle"
+                },
+                {
+                  "label": "Select",
+                  "action": "imBack",
+                  "value": "select:100"
+                }
+              ]
+            }
+          },
+          {
+            "id": "myOtherOtherCard",
+            "type": "heroCard",
+            "data": {
+              "title": "Pikes Place Market",
+              "text": "<b>Pike Place Market</b> is a public market overlooking the Elliott Bay waterfront in Seattle, Washington, United States.",
+              "images": [
+                "https://upload.wikimedia.org/wikipedia/en/thumb/2/2a/PikePlaceMarket.jpg/320px-PikePlaceMarket.jpg"
+              ],
+              "buttons": [
+                {
+                  "label": "Wikipedia",
+                  "action": "openUrl",
+                  "value": "https://en.wikipedia.org/wiki/Pike_Place_Market"
+                },
+                {
+                  "label": "Select",
+                  "action": "imBack",
+                  "value": "select:101"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "myCard",
+      "type": "heroCard",
+      "data": {
+        "title": "Space Needle",
+        "subtitle": "Our Subtitle",
+        "text": "The <b>Space Needle</b> is an observation tower in Seattle, Washington, a landmark of the Pacific Northwest, and an icon of Seattle.",
+        "images": [
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Seattlenighttimequeenanne.jpg/320px-Seattlenighttimequeenanne.jpg"
+        ],
+        "tap": {
+          "action": "openUrl",
+          "value": "https://en.wikipedia.org/wiki/Space_Needle"
+        },
+        "buttons": [
+          {
+            "label": "Wikipedia",
+            "action": "openUrl",
+            "value": "https://en.wikipedia.org/wiki/Space_Needle"
+          }
+        ]
+      }
+    },
+    {
+      "id": "myAdaptiveCard",
+      "type": "adaptive",
+      "data": {
+        "type": "message",
+        "text": "Plain text is ok, but sometimes I long for more...",
+        "content": {
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+          "type": "AdaptiveCard",
+          "version": "1.0",
+          "body": [
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Publish Adaptive Card schema",
+                  "weight": "bolder",
+                  "size": "medium"
+                },
+                {
+                  "type": "ColumnSet",
+                  "columns": [
+                    {
+                      "type": "Column",
+                      "width": "auto",
+                      "items": [
+                        {
+                          "type": "Image",
+                          "url": "https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg",
+                          "size": "small",
+                          "style": "person"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                      "items": [
+                        {
+                          "type": "TextBlock",
+                          "text": "Matt Hidinger",
+                          "weight": "bolder",
+                          "wrap": true
+                        },
+                        {
+                          "type": "TextBlock",
+                          "spacing": "none",
+                          "text": "Created {{DATE(2017-02-14T06:08:39Z, SHORT)}}",
+                          "isSubtle": true,
+                          "wrap": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Now that we have defined the main rules and features of the format, we need to produce a schema and publish it to GitHub. The schema will be the starting point of our reference documentation.",
+                  "wrap": true
+                },
+                {
+                  "type": "FactSet",
+                  "facts": [
+                    {
+                      "title": "Board:",
+                      "value": "Adaptive Card"
+                    },
+                    {
+                      "title": "List:",
+                      "value": "Backlog"
+                    },
+                    {
+                      "title": "Assigned to:",
+                      "value": "Matt Hidinger"
+                    },
+                    {
+                      "title": "Due date:",
+                      "value": "Not set"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "type": "Action.ShowCard",
+              "title": "Set due date",
+              "card": {
+                "type": "AdaptiveCard",
+                "body": [
+                  {
+                    "type": "Input.Date",
+                    "id": "dueDate"
+                  }
+                ],
+                "actions": [
+                  {
+                    "type": "Action.Submit",
+                    "title": "OK"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Action.ShowCard",
+              "title": "Comment",
+              "card": {
+                "type": "AdaptiveCard",
+                "body": [
+                  {
+                    "type": "Input.Text",
+                    "id": "comment",
+                    "isMultiline": true,
+                    "placeholder": "Enter your comment"
+                  }
+                ],
+                "actions": [
+                  {
+                    "type": "Action.Submit",
+                    "title": "OK"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Action.OpenUrl",
+              "title": "View",
+              "url": "http://adaptivecards.io"
+            }
+          ]
+        },
+        "attachments": [
+          {
+            "contentType": "application/vnd.microsoft.card.adaptive",
+            "content": {
+              "type": "AdaptiveCard",
+              "version": "1.0",
+              "body": [
+                {
+                  "type": "TextBlock",
+                  "text": "Hello World!",
+                  "size": "large"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "*Sincerely yours,*"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "Adaptive Cards",
+                  "separation": "none"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "Action.OpenUrl",
+                  "url": "http://adaptivecards.io",
+                  "title": "Learn More"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      "type": "text",
+      "data": {
+        "text": "Lets start!"
+      }
+    },
+    {
+      "id": "isTesting",
+      "type": "prompt",
+      "data": {
+        "type": "text",
+        "text": "What are you doing? (I'll validate using regex: ^test)",
+        "validation": {
+          "type": "regex",
+          "setup": {
+            "pattern": "^test"
+          }
+        }
+      }
+    },
+    {
+      "id": "flightDate",
+      "type": "prompt",
+      "data": {
+        "type": "time",
+        "text": "When would you like to fly?",
+        "validation": {
+          "type": "date",
+          "setup": {
+            "min_date": "2016-11-15 00:00:00",
+            "max_date": "2020-11-25 23:59:59",
+            "invalid_msg": "Oops, wrong date!"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "data": {
+        "text": "All good :)"
+      }
+    }
+  ]
+}

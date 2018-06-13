@@ -1,0 +1,192 @@
+{
+  "id": "LeadInfo",
+  "version": "102",
+  "type": "sequence",
+  "steps": [
+    {
+      "id": "myAdaptiveCard001",
+      "type": "adaptive",
+      "data": {
+        "type": "message",
+
+        "attachments": [
+          {
+            "content": {
+              "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+              "type": "AdaptiveCard",
+              "version": "1.0",
+              "body": [
+                {
+                  "type": "Container",
+                  "items": [
+
+                    {
+                      "type": "ColumnSet",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "auto",
+                          "items": [
+                            {
+                              "type": "Image",
+                              "url": "https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg",
+                              "size": "small",
+                              "style": "person"
+                            }
+
+                          ]
+                        },
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "Kavitha Channaiah",
+                              "weight": "bolder",
+                              "wrap": true
+                            },
+                            {
+                              "type": "TextBlock",
+                              "spacing": "none",
+                              "text": "Created {{DATE(2017-02-14T06:08:39Z, SHORT)}}",
+                              "isSubtle": true,
+                              "wrap": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Container",
+                  "items": [
+
+                    {
+                      "type": "TextBlock",
+                      "text": "Ok. Tell me about yourself...",
+                      "weight": "bolder",
+                      "size": "large"
+                    },
+                    {
+                      "type": "TextBlock",
+                      "text": "I just need a few details to determine the right medicare solution for you !",
+                      "isSubtle": true,
+                      "wrap": true
+                    },
+
+
+                    {
+                      "type": "TextBlock",
+                      "text": "Your name",
+                      "wrap": true
+                    },
+                    {
+                      "type": "Input.Text",
+                      "id": "name",
+                      "placeholder": "First, Last",
+                      "value": "<%name%>"
+
+                    },
+                    {
+                      "type": "TextBlock",
+                      "text": "Your email",
+                      "wrap": true
+                    },
+                    {
+                      "type": "Input.Text",
+                      "id": "email",
+                      "placeholder": "youremail@example.com",
+                      "style": "email",
+                      "value": "<%email%>"
+                    },
+                    {
+                      "type": "TextBlock",
+                      "text": "Phone Number"
+                    },
+                    {
+                      "type": "Input.Text",
+                      "id": "mobileNumber",
+                      "placeholder": "xxx.xxx.xxxx",
+                      "style": "tel",
+                      "value": "<%mobileNumber%>"
+                    },
+                    {
+                      "type": "TextBlock",
+                      "text": "Date of birth"
+                    },
+                    {
+                      "type": "Input.Date",
+                      "id": "dateOfBirth",
+                      "placeholder": "Date of Birth",
+                      "value": "<%dateOfBirth%>"
+                    },
+                    {
+                      "type": "TextBlock",
+                      "text": "Zipcode (Residential)"
+                    },
+                    {
+                      "type": "Input.Number",
+                      "id": "zip",
+                      "placeholder": "92782",
+                      "value": "<%zip%>"
+
+                    }
+
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "title": "Submit",
+                  "data": {
+                    "stopBeforeProcessingNextStep": "yes"
+                  }
+
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "scenarios":
+      [
+        {
+          "condition": "isSmoking",
+          "steps": [
+            {
+              "id": "smokeTime",
+              "type": "prompt",
+              "data": {
+                "type": "number",
+                "text": "For how many years?"
+              }
+            }
+          ]
+        },
+        {
+          "condition": "!isSmoking",
+          "steps": [
+            {
+              "id": "sureNotSmoking",
+              "type": "prompt",
+              "data": {
+                "type": "confirm",
+                "text": "Are you sure?"
+              },
+              "scenarios": [
+                {
+                  "condition": "!sureNotSmoking",
+                  "nodeId": "myAdaptiveCard001"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+    
+  ]
+}

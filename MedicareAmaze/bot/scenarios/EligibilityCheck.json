@@ -1,0 +1,89 @@
+{
+  "id": "EligibilityCheck",
+  "type": "sequence",
+  "steps": [
+    {
+      "id": "Eligibility002",
+      "type": "adaptive",
+      "data": {
+        "type": "message",
+
+        "attachments": [
+          {
+            "content": {
+              "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+              "type": "AdaptiveCard",
+              "version": "1.0",
+              "body": [
+
+                "content",
+                {
+                  "type": "Container",
+                  "items": [
+                    {
+                      "type": "TextBlock",
+                      "text": " **Are you enrolled in Medicare Parts A&B?** ",
+                      "wrap": true
+                    },
+
+                    {
+                      "type": "Image",
+                      "size": "stretch",
+                      "url": "https://www.medicare.gov/medicare-images/JohnSmithWatermarkCards.jpg"
+
+                    },
+
+                    {
+                      "type": "Input.ChoiceSet",
+                      "id": "medicareEnrollment",
+                      "style": "expanded",
+                      "isMultiSelect": false,
+                      "value": "1",
+                      "choices": [
+                        {
+                          "title": "I am Enrolled in both parts A & B",
+                          "wrap": true,
+                          "value": "AB"
+                        },
+                        {
+                          "title": "I am Enrolled in part A only",
+                          "wrap": true,
+                          "value": "A"
+                        },
+                        {
+                          "title": "I am not enrolled",
+                          "wrap": true,
+                          "value": "None"
+                        }
+                      ]
+                    }
+
+
+
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "title": "Submit"
+
+
+                }
+              ]
+            }
+          }
+
+        ]
+      }
+    }
+
+
+
+
+    
+
+  ]
+}
+
+

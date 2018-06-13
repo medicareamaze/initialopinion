@@ -1,0 +1,159 @@
+{
+  "id": "Welcome-medicanja",
+  "version": "112",
+  "type": "sequence",
+  "steps": [
+    {
+      "id": "wlGetExperimentVariable001",
+      "type": "getExperimentVariable",
+      "data": {
+        "ExperimentName": "AdaptiveExperiment",
+        "VariableName": "contentType"
+      }
+    },
+    {
+      "type": "sequence",
+      "scenarios": [
+        {
+          "condition": "contentType == 'adaptive'",
+          "steps": [
+            {
+              "id": "myAdaptiveCard",
+              "type": "adaptive",
+              "data": {
+                "type": "message",                     
+                "attachments": [
+                  {
+                    "contentType": "application/vnd.microsoft.card.adaptive",
+
+                    "content": {
+                      "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                      "type": "AdaptiveCard",
+                      "version": "1.0",
+                      "body": [
+                        {
+                          "type": "Container",
+                          "items": [
+
+                            {
+                              "type": "ColumnSet",
+                              "columns": [
+                                {
+                                  "type": "Column",
+                                  "width": "auto",
+                                  "items": [
+                                    {
+                                      "type": "Image",
+                                      "url": "https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg",
+                                      "size": "small",
+                                      "style": "person"
+                                    }
+
+                                  ]
+                                },
+                                {
+                                  "type": "Column",
+                                  "width": "stretch",
+                                  "items": [
+                                    {
+                                      "type": "TextBlock",
+                                      "text": "Kavitha Channaiah",
+                                      "weight": "bolder",
+                                      "wrap": true
+                                    },
+                                    {
+                                      "type": "TextBlock",
+                                      "spacing": "none",
+                                      "text": "Medicare Advisor",
+                                      "isSubtle": true,
+                                      "wrap": true
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Container",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "Hi There!",
+                              "weight": "bolder",
+                              "size": "medium"
+                            },
+
+                            {
+                              "type": "TextBlock",
+                              "text": "How can I help? ",
+                              "weight": "bolder",
+                              "size": "large"
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "**you can just type in phrases like**",
+                              "isSubtle": true,
+                              "wrap": true
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": " I want to enroll in medicare advantage ",
+                              "isSubtle": true,
+                              "wrap": true
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": " I want to find an agent",
+                              "isSubtle": true,
+                              "wrap": true
+                            },
+                            {
+                              "type": "TextBlock",
+                              "text": "I want to learn about Medigap",
+                              "isSubtle": true,
+                              "wrap": true
+                            }
+
+
+
+
+
+
+                          ]
+                        }
+                      ]
+
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sequence",
+      "scenarios": [
+        {
+          "condition": "contentType == 'nonadaptive'",
+          "steps": [
+            {
+              "id": "nonAdaptiveDialog",
+              "type": "text",
+              "data": {                  
+                "text": "'  Hi There! How can I Help? You can type phrases like \n - I want to enroll in medicare, or\n - I want to learn about medicare, or\n - I want to to find an agent '"
+              }
+
+            }
+
+
+          ]
+        }
+      ]
+    }
+  ]
+}
+        
+

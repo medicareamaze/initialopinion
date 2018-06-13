@@ -7,6 +7,25 @@
     "name": "srangaiah"
   },
   "devDependencies": {
-    "@types/node": "^6.0.87"
+    "@types/node": "^6.0.102",
+    "nodemon": "^1.17.2",
+    "typescript": "^2.7.2"
+  },
+  "dependencies": {
+    "bot-graph-dialog": "github:medicareamaze/bot-graph-dialog",
+    "botbuilder": "^3.14.0",
+    "botbuilder-handoff": "git+https://github.com/medicareamaze/Bot-HandOff.git#npm-handoff",
+    "cache": "^2.1.0",
+    "express": "^4.16.3",
+    "planout": "^4.0.0",
+    "typescript": "^2.7.2",
+    "web-push": "^3.3.0"
+  },
+  "scripts": {
+    "postinstall": "tsc -p ./",
+    "watch": "tsc -w -p ./",
+    "debug": "nodemon --watch ./ --inspect=0.0.0.0:9222 --nolazy ./app.js",
+    "docker-debug": "docker-compose up",
+    "start": "node app.js"
   }
 }

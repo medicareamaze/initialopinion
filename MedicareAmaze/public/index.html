@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Bot Chat</title>
+
+    <link href="https://unpkg.com/botframework-webchat/botchat.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="BotChatGoesHere"></div>
+    <!--<div id="BotChatGoesHere" class="w3-display-container w3-display-bottomleft w3-card-2 w3-animate-right" style="height:600px; width: 400px; bottom: 1px; left: calc(100vw - 400px); background: white; position: fixed; display: inline-block;">
+    </div>-->
+    <!--<div class="skype-chat" data-can-collapse="true" data-bot-id="d1a10922-9a06-4d92-81a9-d1c90648ca5e"></div>-->
+
+
+    <form id="logon-form">
+        <label for="user-id">Enter login ID here</label>
+        <input id="user-id" type="text">
+        <button id="submit-btn" type="submit">Log In</button>
+    </form>
+
+    <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>-->
+    <script src="https://unpkg.com/botframework-webchat/botchat.js"></script>
+     <script src="connectToBot.js"></script>
+</body>
+
+</html>

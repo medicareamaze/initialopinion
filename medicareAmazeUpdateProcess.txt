@@ -1,0 +1,35 @@
+Process to Update Changes
+
+On the machine where Source code is present
+
+1. Build the docker Image
+
+docker build --no-cache -t medicareamaze/botapi .
+
+2. Login to DockerHun
+login Docker
+(medicareamaze/Vijay123)
+
+3. Push latest Change
+docker push medicareamaze/botapi
+
+On teh MAchine where Minikube is running
+
+1. Pull the Image
+docker pull medicareamaze/botapi
+
+2. Update Image for Deployment
+ kubectl set image deployment/mabotapi-deployment  mabotapi=medicareamaze/botapi:latest
+  Note here mabotapi is teh container and mabotapi-deployment is teh deployment and medicareamaze/botapi:latest is teh image
+
+3. run - kubectl get pods
+
+4. run -  kubectl delete pod mabotapi-deployment-XXXXXXXXXXXXXXXXXXXX
+
+5. To Go To Contain Prompt -  kubectl exec -it mabotapi-deployment-XXXXXXXXXXXXXXXXXXXX -- /bin/bash
+
+6. To see logs  kubectlt logs -f mabotapi-deployment-XXXXXXXXXXXXXXXXXXXX
+
+
+
+
