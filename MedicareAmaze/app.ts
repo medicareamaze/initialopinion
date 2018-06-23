@@ -356,7 +356,7 @@ class App {
                             .create({
                                 url: 'http://demo.twilio.com/docs/voice.xml',
                                 to: callphone,
-                                from: '+19493972864'
+                                from: ''
                             })
                             .then(call => console.log(call.sid))
                             .done();
@@ -367,8 +367,7 @@ class App {
 
                     // Download the helper library from https://www.twilio.com/docs/node/install
                     // Your Account Sid and Auth Token from twilio.com/console
-                    //const accountSid = 'AC701f6a1011e78f6e70eb2983b5ac4660-Test';
-                    //const authToken = '06d16af60fc808397c6c4f71d90f7da4-Test';
+                 
                     //const client = require('twilio')(accountSid, authToken);
 
                     //+1949397286400
