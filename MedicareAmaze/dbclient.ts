@@ -27,7 +27,7 @@ class DbClient {
         };
         try {
             // this.db = await MongoClient.connect("mongodb://main_admin:Vijay123@mongod-0.mongodb-service,mongod-1.mongodb-service,mongod-2.mongodb-service:27017/MedicareAmaze?replicaSet=MainRepSet&authSource=admin", option);
-            this.db = await mongoose.connect("mongodb://main_admin:Vijay123@mongod-0.mongodb-service,mongod-1.mongodb-service,mongod-2.mongodb-service:27017/MedicareAmaze?replicaSet=MainRepSet&authSource=admin", options);
+            this.db = await mongoose.connect("", options);
            // this.db = await mongoose.connect("mongodb://localhost:27017/Medicanja", options);
 
             console.log("Connected to db");
