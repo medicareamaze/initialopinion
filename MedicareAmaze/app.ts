@@ -1,4 +1,5 @@
-﻿import * as express from 'express';
+import * as express from 'express';
+import { Twilio } from 'twilio';
 import * as builder from 'botbuilder';
 import * as handoff from 'botbuilder-handoff';
 import * as   GraphDialog from 'bot-graph-dialog';
@@ -48,13 +49,14 @@ class App {
 
             const app = express();
             // Setup Express Server
-            app.listen(process.env.port || process.env.PORT || 8080, '::', () => {
+            //app.listen(process.env.port || process.env.PORT || 8080, '::', () => {
+               app.listen( 8089, '::', () => { 
                 console.log('Server Up Now');
 
             });
 
 
-
+            
             //Connect MedicareDB Data base and get agencies
             let db = await DbClient.connect();
             let agencyBots = await db.collection("agency").find().toArray();
@@ -314,8 +316,74 @@ class App {
 
                 });
 
+
+               
+
+                app.get('/api/' + agency.agencyId + '/leads', async (req, res,next) => {
+                    try {                 
+                        let leads = await db.collection("leads").find({}, {leadId:1, name: 1 ,phone:1}).toArray();
+                        let jleads = JSON.stringify(leads);
+                        console.log(`Leads: ${leads}`);
+                        console.log(jleads);
+                        res.send(jleads);
+                    } catch (e) {
+                        //this will eventually be handled by your error handling middleware
+                        res.send(e);
+                    }
+                });
+
+
+
             })
 
+
+            //twilio call
+            app.get('/api/twiliocall/phone/:phone', (req, res, next) => {
+                try {
+               
+                   
+                    const accountSid = 'AC701f6a1011e78f6e70eb2983b5ac4660';
+                    const authToken = '06d16af60fc808397c6c4f71d90f7da4';
+                    const client = new Twilio(accountSid, authToken);
+                    const MODERATOR = '+19493972864';
+                    var callphone = req.params.phone;
+                    console.log(`Twilio Call: ${callphone}`);
+                    if (callphone) {
+                        client.calls
+                            .create({
+                                url: 'http://demo.twilio.com/docs/voice.xml',
+                                to: callphone,
+                                from: '+19493972864'
+                            })
+                            .then(call => console.log(call.sid))
+                            .done();
+                    }
+                    //client.messages.each({ limit: 10 }, function (message) {
+                    //    console.log(message.body);
+                    //});
+
+                    // Download the helper library from https://www.twilio.com/docs/node/install
+                    // Your Account Sid and Auth Token from twilio.com/console
+                    //const accountSid = 'AC701f6a1011e78f6e70eb2983b5ac4660-Test';
+                    //const authToken = '06d16af60fc808397c6c4f71d90f7da4-Test';
+                    //const client = require('twilio')(accountSid, authToken);
+
+                    //+1949397286400
+
+                    //client.messages
+                    //    .create({
+                    //        body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+                    //        from: '+15017122661',
+                    //        to: '+15558675310'
+                    //    })
+                    //    .then(message => console.log(message.sid))
+                    //    .done();
+                    
+                } catch (e) {
+                    //this will eventually be handled by your error handling middleware
+                    res.send(e);
+                }
+            });
 
         }
         catch (error) {

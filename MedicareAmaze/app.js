@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
+const twilio_1 = require("twilio");
 const builder = require("botbuilder");
 const handoff = require("botbuilder-handoff");
 const GraphDialog = require("bot-graph-dialog");
@@ -51,7 +52,8 @@ class App {
                 console.log(vapidKeys.publicKey);
                 const app = express();
                 // Setup Express Server
-                app.listen(process.env.port || process.env.PORT || 8080, '::', () => {
+                //app.listen(process.env.port || process.env.PORT || 8080, '::', () => {
+                app.listen(8089, '::', () => {
                     console.log('Server Up Now');
                 });
                 //Connect MedicareDB Data base and get agencies
@@ -267,6 +269,61 @@ class App {
                             return res.end(`error loading dialog: ${err.message}`);
                         }
                     }));
+                    app.get('/api/' + agency.agencyId + '/leads', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+                        try {
+                            let leads = yield db.collection("leads").find({}, { leadId: 1, name: 1, phone: 1 }).toArray();
+                            let jleads = JSON.stringify(leads);
+                            console.log(`Leads: ${leads}`);
+                            console.log(jleads);
+                            res.send(jleads);
+                        }
+                        catch (e) {
+                            //this will eventually be handled by your error handling middleware
+                            res.send(e);
+                        }
+                    }));
+                });
+                //twilio call
+                app.get('/api/twiliocall/phone/:phone', (req, res, next) => {
+                    try {
+                        const accountSid = 'AC701f6a1011e78f6e70eb2983b5ac4660';
+                        const authToken = '06d16af60fc808397c6c4f71d90f7da4';
+                        const client = new twilio_1.Twilio(accountSid, authToken);
+                        const MODERATOR = '+19493972864';
+                        var callphone = req.params.phone;
+                        console.log(`Twilio Call: ${callphone}`);
+                        if (callphone) {
+                            client.calls
+                                .create({
+                                url: 'http://demo.twilio.com/docs/voice.xml',
+                                to: callphone,
+                                from: '+19493972864'
+                            })
+                                .then(call => console.log(call.sid))
+                                .done();
+                        }
+                        //client.messages.each({ limit: 10 }, function (message) {
+                        //    console.log(message.body);
+                        //});
+                        // Download the helper library from https://www.twilio.com/docs/node/install
+                        // Your Account Sid and Auth Token from twilio.com/console
+                        //const accountSid = 'AC701f6a1011e78f6e70eb2983b5ac4660-Test';
+                        //const authToken = '06d16af60fc808397c6c4f71d90f7da4-Test';
+                        //const client = require('twilio')(accountSid, authToken);
+                        //+1949397286400
+                        //client.messages
+                        //    .create({
+                        //        body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+                        //        from: '+15017122661',
+                        //        to: '+15558675310'
+                        //    })
+                        //    .then(message => console.log(message.sid))
+                        //    .done();
+                    }
+                    catch (e) {
+                        //this will eventually be handled by your error handling middleware
+                        res.send(e);
+                    }
                 });
             }
             catch (error) {

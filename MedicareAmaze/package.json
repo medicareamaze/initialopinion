@@ -13,13 +13,13 @@
   },
   "dependencies": {
     "bot-graph-dialog": "github:medicareamaze/bot-graph-dialog",
-    "botbuilder": "^3.14.0",
+    "botbuilder": "^3.15.0",
     "botbuilder-handoff": "git+https://github.com/medicareamaze/Bot-HandOff.git#npm-handoff",
     "cache": "^2.1.0",
     "express": "^4.16.3",
     "planout": "^4.0.0",
-    "typescript": "^2.7.2",
-    "web-push": "^3.3.0"
+    "typescript": "^2.9.2",
+    "web-push": "^3.3.1"
   },
   "scripts": {
     "postinstall": "tsc -p ./",

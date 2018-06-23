@@ -37,9 +37,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
     <Content Include=".dockerignore" />
     <Content Include="bots\lead\scenarios\leadInfo.json">
       <SubType>Code</SubType>
@@ -72,6 +69,7 @@
     <Content Include="tsconfig.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <TypeScriptCompile Include="app.ts" />
     <TypeScriptCompile Include="dbclient.ts" />
     <TypeScriptCompile Include="salesCrm.ts" />
     <TypeScriptCompile Include="Experiments.ts" />

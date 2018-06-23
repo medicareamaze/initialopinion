@@ -23,12 +23,16 @@ docker pull medicareamaze/botapi
   Note here mabotapi is teh container and mabotapi-deployment is teh deployment and medicareamaze/botapi:latest is teh image
 
 3. run - kubectl get pods
+putty 192.168.1.120 sran
 
 4. run -  kubectl delete pod mabotapi-deployment-XXXXXXXXXXXXXXXXXXXX
 
 5. To Go To Contain Prompt -  kubectl exec -it mabotapi-deployment-XXXXXXXXXXXXXXXXXXXX -- /bin/bash
 
-6. To see logs  kubectlt logs -f mabotapi-deployment-XXXXXXXXXXXXXXXXXXXX
+6. To see logs  kubectl logs -f mabotapi-deployment-XXXXXXXXXXXXXXXXXXXX
+
+
+kubectl logs -f  mabotapi-deployment-d8dbf58b7-t8kpw 
 
 
 
