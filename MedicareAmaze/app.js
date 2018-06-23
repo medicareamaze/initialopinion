@@ -247,7 +247,7 @@ class App {
                     session.userData.isAgent;
                     handoff.setup(bot, app, isAgent, {
                         // mongodbProvider: process.env.MONGODB_PROVIDER,
-                        mongodbProvider: "mongodb://main_admin:Vijay123@mongod-0.mongodb-service,mongod-1.mongodb-service,mongod-2.mongodb-service:27017/MedicareAmaze?replicaSet=MainRepSet&authSource=admin",
+                        mongodbProvider: "",
                         //    mongodbProvider: "mongodb://localhost:27017/Medicanja",
                         directlineSecret: agency.directLineSecret,
                         textAnalyticsKey: process.env.CG_SENTIMENT_KEY,
@@ -289,10 +289,10 @@ class App {
                 //twilio call
                 app.get('/api/twiliocall/phone/:phone', (req, res, next) => {
                     try {
-                        const accountSid = 'AC701f6a1011e78f6e70eb2983b5ac4660';
-                        const authToken = '06d16af60fc808397c6c4f71d90f7da4';
+                        const accountSid = '';
+                        const authToken = '';
                         const client = new twilio_1.Twilio(accountSid, authToken);
-                        const MODERATOR = '+19493972864';
+                        const MODERATOR = '';
                         var callphone = req.params.phone;
                         console.log(`Twilio Call: ${callphone}`);
                         if (callphone) {
