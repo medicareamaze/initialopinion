@@ -3,46 +3,27 @@
   "version": "112",
   "type": "sequence",
   "steps": [
+
+
     {
-      "id": "mobileNumber",
-      "type": "prompt",
+      "id": "welcomeCard",
+      "type": "heroCard",
       "data": {
-        "type": "text",
-        "text": "Please enter your 10 digit mobile number including the area code",
-        "placeholder":  "8765090836",
-        "validation": {
-          "type": "regex",
-          "setup": {
-            "pattern": "^[+]?([0-9]*[\\.\\s\\-\\(\\)]|[0-9]+){10,13}$"
-          }
-        }
+        "title": "Initial Opinion",
+        "text": "Hey There! I will ask you a sereis of questions and based on your responses and my artificial intelligence, I will provide you an initial dignosis and recommend doctors! You can remotely connect with the doctor of your choice  using our awesome mobile app - Doctor On Call!",
+        "images": [
+          "https://www.hcd.com/wp-content/uploads/2017/07/diagnosis.png"
+        ]
       }
     },
+
     {
-      "id": "customTypeSendMobileCode",
-      "type": "sendRegistrationMobileCode",
-      "data": { "mobileNumber": "<%mobileNumber%>" }
-    },
-    {
-      "id": "validationCode",
+      "id": "location",
       "type": "prompt",
       "data": {
-        "type": "number",
-        "text": "Please enter the 4 digit validation code that was texted to <%mobileNumber%>",
-        "validation": {
-          "type": "regex",
-          "setup": {
-            "pattern": "[0-9]{4}"
-          }
-        }
-      }
-    },
-    {
-      "id": "customTypevalidateMobileCode",
-      "type": "validateMobileCode",
-      "data": {
-        "mobileNumber": "<%mobileNumber%>",
-        "validationCode": "<%validationCode%>"
+        "type": "choice",
+        "text": "Please select your country of residence",
+        "options": [ "Jamaica", "USA", "India" ]
       }
     },
     {
@@ -51,156 +32,274 @@
       "data": {
         "type": "choice",
         "text": "Please select your gender",
-        "options": [ "Male", "Female" ]
+        "options": [ "male", "female" ]
       }
     },
     {
-      "id": "age",
+      "id": "dob",
       "type": "prompt",
       "data": {
         "type": "time",
-        "text": "Enter your date of birth?"
+        "text": "Enter your date of birth (mm/dd/yyyy)"
       }
     },
     {
-      "id": "whenStart",
+      "id": "height",
       "type": "prompt",
       "data": {
-        "type": "time",
-        "text": "When did it start?"
+        "type": "number",
+        "text": "Enter your height (in Inches)"
       }
     },
     {
-      "id": "customTypeStepDemo",
-      "type": "myCustomType",
-      "data": { "someData": "someData" }
+      "id": "weight",
+      "type": "prompt",
+      "data": {
+        "type": "number",
+        "text": "Enter your weight (in pounds)"
+      }
     },
     {
-      "subScenario": "smoking"
-    },
-    {
-      "id": "workout",
+      "id": "p_8",
       "type": "prompt",
       "data": {
         "type": "choice",
-        "text": "What kind of workout do you do?",
-        "options": [ "None", "Crossfit", "TRX", "Kung-Fu" ],
-        "config": {
-          "listStyle": "button"
-        }
-      },
-      "varname": "workout",
+        "text": "Do you have diabetes?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "p_9",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you suffer from hypetension?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "p_10",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you have high cholesterol?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "p_28",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you smoke tobacco?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "p_69",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you use marijuana?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "p_147",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Did you suffer from any physical injuries recently?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "complaint",
+      "type": "prompt",
+      "data": {
+        "type": "text",
+        "text": "How do you feel? What is your complaint? \n You can enter phrases like **I have headache and body pain** "
+      }
+    },
+    {
+      "id": "initialSymptomsProcess001",
+      "type": "initialSymptomsProcess",
+      "data": { "mobileNumber": "<%mobileNumber%>" }
+    },
+
+    {
+      "id": "initiateDiagnosisInterview001",
+      "type": "initiateDiagnosisInterview",
+      "data": { "mobileNumber": "<%mobileNumber%>" }
+    },
+
+
+
+
+
+    {
+      "id": "nextQuestion",
+      "type": "sequence",
       "scenarios": [
         {
-          "condition": "workout == 'Crossfit'",
+          "condition": "should_stop == false",
           "steps": [
             {
-              "id": "cfWeight",
+              "id": "luisretry.false",
               "type": "prompt",
               "data": {
-                "type": "number",
-                "text": "How much do you lift?"
-              },
+                "type": "choice",
+                "text": "<%next_question%>",
+                "options": [ "Yes", "No", "Dont Know" ]
+              }
+            },
+            {
+              "id": "processDiagnosisResponse002",
+              "type": "processDiagnosisResponse",
+              "data": { "mobileNumber": "<%mobileNumber%>" },
               "scenarios": [
                 {
-                  "condition": "cfWeight <= 100",
-                  "steps": [
-                    {
-                      "id": "cfWeightSmallReason",
-                      "type": "prompt",
-                      "data": { "text": "Why so lite?" }
-                    }
-                  ]
+                  "condition": "should_stop == false",
+                  "nodeId": "nextQuestion"
                 },
+
                 {
-                  "condition": "cfWeight > 100",
+                  "condition": "should_stop == true",
                   "steps": [
                     {
-                      "id": "cfCrazy",
+                      "id": "firstAndLastName",
                       "type": "prompt",
                       "data": {
-                        "type": "confirm",
-                        "text": "Are you crazy?"
-                      },
-                      "scenarios": [
-                        {
-                          "condition": "cfCrazy",
-                          "steps": [
-                            {
-                              "id": "takePills",
-                              "type": "text",
-                              "data": { "text": "Please start taking your pills" }
-                            }
-                          ]
-                        },
-                        {
-                          "condition": "!cfCrazy",
-                          "steps": [
-                            {
-                              "id": "cfHowLong",
-                              "type": "prompt",
-                              "data": {
-                                "type": "number",
-                                "text": "How many years have you been working out?"
-                              }
-                            },
-                            {
-                              "id": "cfInstructor",
-                              "type": "prompt",
-                              "data": { "text": "Who is your instructor?" }
-                            },
-                            {
-                              "id": "cfWhere",
-                              "type": "prompt",
-                              "data": { "text": "Where do you work out?" }
-                            }
-                          ]
+                        "type": "text",
+                        "text": "I am ready with my diagnosis. I just need your name and contact details\n\n. **Please enter your name**"
+                      }
+                    },
+                    {
+                      "id": "mobileNumber",
+                      "type": "prompt",
+                      "data": {
+                        "type": "text",
+                        "text": "Please enter your 10 digit mobile number including the area code.",
+                        "validation": {
+                          "type": "regex",
+                          "setup": {
+                            "pattern": "^[+]?([0-9]*[\\.\\s\\-\\(\\)]|[0-9]+){10,13}$"
+                          }
                         }
-                      ]
+                      }
+                    },
+                    {
+                      "id": "customTypeSendMobileCode",
+                      "type": "sendRegistrationMobileCode",
+                      "data": { "mobileNumber": "<%mobileNumber%>" }
+                    },
+                    {
+                      "id": "validationCode",
+                      "type": "prompt",
+                      "data": {
+                        "type": "number",
+                        "text": "Please enter the 4 digit validation code that was texted to <%mobileNumber%>",
+                        "validation": {
+                          "type": "regex",
+                          "setup": {
+                            "pattern": "[0-9]{4}"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": "customTypevalidateMobileCode",
+                      "type": "validateMobileCode",
+                      "data": {
+                        "mobileNumber": "<%mobileNumber%>",
+                        "validationCode": "<%validationCode%>"
+                      }
+                    },
+
+                    {
+                      "id": "luisretry.true",
+                      "type": "text",
+                      "data": {
+                        "text": "**Conditions -**\n\n<%conditions%>"
+                      }
+                    }
+
+                  ]
+                }
+              ]
+            }
+
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "nextStep",
+      "type": "sequence",
+      "steps": [
+        {
+          "id": "talkToDoc",
+          "type": "prompt",
+          "data": {
+            "type": "confirm",
+            "text": "Do you want to Chat with a Doc?"
+          },
+          "scenarios": [
+            {
+              "condition": "talkToDoc",
+              "steps": [
+                {
+                  "id": "docTime",
+                  "type": "prompt",
+                  "data": {
+                    "type": "time",
+                    "text": "What's the best time for the docor to call you today?"
+                  }
+                },
+                {
+                  "id": "docTimeThanks",
+                  "type": "text",
+                  "data": {
+                    "text": "Thank you! I'll have the doctor call you asap!"
+                  },
+                  "scenarios": [
+                    {
+                      "condition": "talkToDoc",
+                      "nodeId": "welcomeCard"
+                    }
+                  ]
+                }
+
+
+              ]
+            },
+            {
+              "condition": "!talkToDoc",
+              "steps": [
+                {
+                  "id": "sureNotTalkingToDoc",
+                  "type": "prompt",
+                  "data": {
+                    "type": "confirm",
+                    "text": "Are you sure?"
+                  },
+                  "scenarios": [
+                    {
+                      "condition": "!sureNotTalkingToDoc",
+                      "nodeId": "talkToDoc"
+                    },
+                    {
+                      "condition": "sureNotTalkingToDoc",
+                      "nodeId": "welcomeCard"
                     }
                   ]
                 }
               ]
             }
           ]
-        },
-        {
-          "condition": "workout == 'TRX'",
-          "steps": [
-            {
-              "id": "trxStrength",
-              "type": "prompt",
-              "data": {
-                "type": "choice",
-                "text": "What is the strength of the rope?",
-                "options": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
-              }
-            }
-          ]
-        },
-        {
-          "condition": "workout == 'Kung-Fu'",
-          "steps": [
-            {
-              "id": "kfYears",
-              "type": "prompt",
-              "data": {
-                "type": "number",
-                "text": "How many years have you neen practicing?"
-              }
-            }
-          ]
         }
       ]
-    },
-    {
-      "type": "text",
-      "data": { "text": "Please wait while we finalize the data..." }
-    },
-    {
-      "id": "finalize",
-      "type": "handler",
-      "data": { "name": "summary.js" }
     }
   ]
 }

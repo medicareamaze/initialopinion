@@ -19,6 +19,7 @@ const webPush = require("web-push");
 const DbClient = require("./dbclient");
 const Experiments_1 = require("./Experiments");
 const Experiments_2 = require("./Experiments");
+const Diagnose_1 = require("./diagnosis/Diagnose");
 class App {
     start() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -70,7 +71,8 @@ class App {
                     bot.dialog('/', intents);
                     intents.matches(/^(help|hi|hello)/i, [
                         session => {
-                            session.send('Hi, how can I help you?');
+                            session.send('Hi, Welcome to Initial Opinion - your free initial diagnosis tool');
+                            bot.beginDialog(session.message.address, '/diagnosis');
                         }
                     ]);
                     bot.on('conversationUpdate', function (message) {
@@ -145,6 +147,7 @@ class App {
                                         "landLine": '',
                                         "zip": '',
                                         "dateOfBirth": '1950-01-01',
+                                        "interviews": [],
                                         "leadIntent": [],
                                         "eligibleProductTypes": [],
                                         "interestedProductTypes": [],
@@ -244,8 +247,8 @@ class App {
                     session.userData.isAgent;
                     handoff.setup(bot, app, isAgent, {
                         // mongodbProvider: process.env.MONGODB_PROVIDER,
-                        //  mongodbProvider: "mongodb://main_admin:Vijay123@mongod-0.mongodb-service,mongod-1.mongodb-service,mongod-2.mongodb-service:27017/MedicareAmaze?replicaSet=MainRepSet&authSource=admin",
-                        mongodbProvider: "mongodb://localhost:27017/Medicanja",
+                        mongodbProvider: "mongodb://main_admin:Vijay123@mongod-0.mongodb-service,mongod-1.mongodb-service,mongod-2.mongodb-service:27017/MedicareAmaze?replicaSet=MainRepSet&authSource=admin",
+                        //    mongodbProvider: "mongodb://localhost:27017/Medicanja",
                         directlineSecret: agency.directLineSecret,
                         textAnalyticsKey: process.env.CG_SENTIMENT_KEY,
                         appInsightsInstrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY,
@@ -471,7 +474,31 @@ function getCustomTypeHandlers() {
             execute: (session, next, data) => {
                 return next();
             }
-        }
+        },
+        {
+            name: 'initialSymptomsProcess',
+            execute: (session, next, data) => __awaiter(this, void 0, void 0, function* () {
+                var diag = new Diagnose_1.default();
+                var riskfactors = yield diag.initialSymptomsProcess(session);
+                return next();
+            })
+        },
+        {
+            name: 'initiateDiagnosisInterview',
+            execute: (session, next, data) => __awaiter(this, void 0, void 0, function* () {
+                var diag = new Diagnose_1.default();
+                var riskfactors = yield diag.initiateDiagnosis(session);
+                return next();
+            })
+        },
+        {
+            name: 'processDiagnosisResponse',
+            execute: (session, next, data) => __awaiter(this, void 0, void 0, function* () {
+                var diag = new Diagnose_1.default();
+                var riskfactors = yield diag.processDiagnosis(session);
+                return next();
+            })
+        },
     ];
 }
 // this is the handler for loading scenarios from external datasource

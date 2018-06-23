@@ -10,6 +10,7 @@ import * as  webPush from 'web-push';
 import DbClient = require("./dbclient");
 import { LUISExperiment } from "./Experiments";
 import Experiments from "./Experiments";
+import Diagnose from "./diagnosis/Diagnose";
 
 class App {
     public async start() {
@@ -77,7 +78,8 @@ class App {
 
                 intents.matches(/^(help|hi|hello)/i, [
                     session => {
-                        session.send('Hi, how can I help you?');
+                        session.send('Hi, Welcome to Initial Opinion - your free initial diagnosis tool');
+                        bot.beginDialog(session.message.address, '/diagnosis');
                     }
                 ]);
                 bot.on('conversationUpdate', function (message) {
@@ -156,6 +158,7 @@ class App {
                                     "landLine": '',
                                     "zip": '',
                                     "dateOfBirth": '1950-01-01',
+                                    "interviews":[],
                                     "leadIntent": [],
                                     "eligibleProductTypes": [],
                                     "interestedProductTypes": [],
@@ -285,8 +288,8 @@ class App {
 
                 handoff.setup(bot, app, isAgent, {
                     // mongodbProvider: process.env.MONGODB_PROVIDER,
-                    //  mongodbProvider: "mongodb://main_admin:Vijay123@mongod-0.mongodb-service,mongod-1.mongodb-service,mongod-2.mongodb-service:27017/MedicareAmaze?replicaSet=MainRepSet&authSource=admin",
-                    mongodbProvider: "mongodb://localhost:27017/Medicanja",
+                      mongodbProvider: "mongodb://main_admin:Vijay123@mongod-0.mongodb-service,mongod-1.mongodb-service,mongod-2.mongodb-service:27017/MedicareAmaze?replicaSet=MainRepSet&authSource=admin",
+                  //    mongodbProvider: "mongodb://localhost:27017/Medicanja",
 
                     directlineSecret: agency.directLineSecret,
                     textAnalyticsKey: process.env.CG_SENTIMENT_KEY,
@@ -557,7 +560,32 @@ function getCustomTypeHandlers() {
             execute: (session, next, data) => {
                 return next();
             }
-        }
+        },        
+        {
+            name: 'initialSymptomsProcess',
+            execute: async (session, next, data) => {
+                var diag = new Diagnose();
+                var riskfactors = await diag.initialSymptomsProcess(session);
+                return next();
+            }
+        },
+        {
+            name: 'initiateDiagnosisInterview',
+            execute: async (session, next, data) =>  {
+                var diag = new Diagnose();
+                var riskfactors =  await diag.initiateDiagnosis(session);
+                return next();
+            }
+        },
+        {
+            name: 'processDiagnosisResponse',
+            execute: async (session, next, data) => {
+                var diag = new Diagnose();
+                var riskfactors = await diag.processDiagnosis(session);
+                return next();
+            }
+        },
+
     ];
 }
 

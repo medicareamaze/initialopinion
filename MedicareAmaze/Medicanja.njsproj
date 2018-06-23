@@ -6,6 +6,7 @@
     <Name>Medicanja</Name>
     <RootNamespace>MedicareAmaze</RootNamespace>
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
+    <NameOfLastUsedPublishProfile>Medicanja</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -63,6 +64,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Dockerfile" />
+    <None Include="Medicanja.pubxml" />
     <Content Include="public\index.html">
       <SubType>Code</SubType>
     </Content>
@@ -71,6 +73,9 @@
     <Content Include="README.md" />
     <TypeScriptCompile Include="app.ts" />
     <TypeScriptCompile Include="dbclient.ts" />
+    <TypeScriptCompile Include="diagnosis\Diagnose.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="salesCrm.ts" />
     <TypeScriptCompile Include="Experiments.ts" />
   </ItemGroup>
@@ -81,6 +86,8 @@
     <Folder Include="bot\handlers\" />
     <Folder Include="bot\scenarios\" />
     <Folder Include="bots\" />
+    <Folder Include="diagnosis\" />
+    <Folder Include="twilio\" />
     <Folder Include="public\" />
   </ItemGroup>
   <ItemGroup>
