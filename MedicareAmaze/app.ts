@@ -325,7 +325,7 @@ class App {
 
                 app.get('/api/' + agency.agencyId + '/leads', async (req, res,next) => {
                     try {                 
-                        let leads = await db.collection("leads").find({}, {leadId:1, name: 1 ,phone:1}).toArray();
+                        let leads = await db.collection("leads").find({}, {leadId:1, name: 1 ,mobileNumber:1}).toArray();
                         let jleads = JSON.stringify(leads);
                         console.log(`Leads: ${leads}`);
                         console.log(jleads);

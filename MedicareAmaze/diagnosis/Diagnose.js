@@ -169,7 +169,19 @@ class Diagnose {
                     enumerable: true,
                     configurable: true
                 });
+                Object.defineProperty(session.userData, 'mobileNumber', {
+                    value: session.message.text,
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                });
                 Object.defineProperty(session.dialogData.data, 'mobileToken', {
+                    value: session.message.text,
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(session.userData, 'mobileToken', {
                     value: session.message.text,
                     writable: true,
                     enumerable: true,
@@ -188,9 +200,21 @@ class Diagnose {
                         enumerable: true,
                         configurable: true
                     });
+                    Object.defineProperty(session.userData, 'mobileNumberVerified', {
+                        value: true,
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    });
                 }
                 else {
                     Object.defineProperty(session.dialogData.data, 'mobileNumberVerifiedTime', {
+                        value: new Date().toISOString(),
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    });
+                    Object.defineProperty(session.userData, 'mobileNumberVerifiedTime', {
                         value: new Date().toISOString(),
                         writable: true,
                         enumerable: true,

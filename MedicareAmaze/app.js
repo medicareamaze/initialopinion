@@ -276,7 +276,7 @@ class App {
                     }));
                     app.get('/api/' + agency.agencyId + '/leads', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
                         try {
-                            let leads = yield db.collection("leads").find({}, { leadId: 1, name: 1, phone: 1 }).toArray();
+                            let leads = yield db.collection("leads").find({}, { leadId: 1, name: 1, mobileNumber: 1 }).toArray();
                             let jleads = JSON.stringify(leads);
                             console.log(`Leads: ${leads}`);
                             console.log(jleads);
