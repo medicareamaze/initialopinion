@@ -26,9 +26,8 @@ class DbClient {
             reconnectInterval: 500, // Reconnect every 500ms
         };
         try {
-            // this.db = await MongoClient.connect("mongodb://main_admin:Vijay123@mongod-0.mongodb-service,mongod-1.mongodb-service,mongod-2.mongodb-service:27017/MedicareAmaze?replicaSet=MainRepSet&authSource=admin", option);
-            this.db = await mongoose.connect("", options);
-           // this.db = await mongoose.connect("mongodb://localhost:27017/Medicanja", options);
+            // this.db = await mongoose.connect(process.env.MONGODB_PROVIDER_PROD, options);
+            this.db = await mongoose.connect(process.env.MONGODB_PROVIDER_DEV, options);
 
             console.log("Connected to db");
            // console.log(this.db)

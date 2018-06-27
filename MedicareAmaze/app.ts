@@ -12,9 +12,11 @@ import { LUISExperiment } from "./Experiments";
 import Experiments from "./Experiments";
 import Diagnose from "./diagnosis/Diagnose";
 
+
 class App {
     public async start() {
         try {
+            require('dotenv').config();
             const vapidKeyFilePath = "./vapidKey.json";
             var that = this;
             //var vapidKeys = {};
@@ -50,10 +52,8 @@ class App {
 
             const app = express();
             // Setup Express Server
-            //app.listen(process.env.port || process.env.PORT || 8080, '::', () => {
-               app.listen( 8089, '::', () => { 
-                console.log('Server Up Now');
-
+             app.listen(+process.env.port || +process.env.PORT || 8080, '::', () => {                 
+                console.log('Server Up Now');      
             });
 
 
@@ -155,6 +155,9 @@ class App {
                                     "name": message.user.name,
                                     "email": '',
                                     "mobileNumber": '',
+                                    "mobileToken": '',
+                                    "mobileNumberVerified": false,
+                                    "mobileNumberVerifiedTime": new Date().toISOString(),
                                     "landLine": '',
                                     "zip": '',
                                     "dateOfBirth": '1950-01-01',
@@ -287,10 +290,8 @@ class App {
 
 
                 handoff.setup(bot, app, isAgent, {
-                    // mongodbProvider: process.env.MONGODB_PROVIDER,
-                      mongodbProvider: "",
-                  //    mongodbProvider: "mongodb://localhost:27017/Medicanja",
-
+                    // mongodbProvider: process.env.MONGODB_PROVIDER_PROD,
+                    mongodbProvider: process.env. MONGODB_PROVIDER_DEV,
                     directlineSecret: agency.directLineSecret,
                     textAnalyticsKey: process.env.CG_SENTIMENT_KEY,
                     appInsightsInstrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY,
@@ -344,9 +345,9 @@ class App {
             app.get('/api/twiliocall/phone/:phone', (req, res, next) => {
                 try {
                
-                   
-                    const accountSid = '';
-                    const authToken = '';
+
+                    const accountSid = process.env.twilio_sid;
+                    const authToken = process.env.twilio_token;
                     const client = new Twilio(accountSid, authToken);
                     const MODERATOR = '';
                     var callphone = req.params.phone;
@@ -550,13 +551,17 @@ function getCustomTypeHandlers() {
         },
         {
             name: 'sendRegistrationMobileCode',
-            execute: (session, next, data) => {
+            execute: async (session, next, data) => {
+                var diag = new Diagnose();
+                var result = await diag.sendMobileCodeAndUpdateLead(session);                     
                 return next();
             }
         },
         {
             name: 'validateMobileCode',
-            execute: (session, next, data) => {
+            execute: async (session, next, data) => {
+                var diag = new Diagnose();
+                var result = await diag.verifyMobileCodeAndUpdateLead(session);
                 return next();
             }
         },        
@@ -564,7 +569,7 @@ function getCustomTypeHandlers() {
             name: 'initialSymptomsProcess',
             execute: async (session, next, data) => {
                 var diag = new Diagnose();
-                var riskfactors = await diag.initialSymptomsProcess(session);
+                var result = await diag.initialSymptomsProcess(session);
                 return next();
             }
         },
@@ -572,7 +577,7 @@ function getCustomTypeHandlers() {
             name: 'initiateDiagnosisInterview',
             execute: async (session, next, data) =>  {
                 var diag = new Diagnose();
-                var riskfactors =  await diag.initiateDiagnosis(session);
+                var result =  await diag.initiateDiagnosis(session);
                 return next();
             }
         },

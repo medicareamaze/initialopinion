@@ -31,8 +31,8 @@ class DbClient {
                 reconnectInterval: 500,
             };
             try {
-                this.db = yield mongoose.connect("", options);
-                // this.db = await mongoose.connect("mongodb://localhost:27017/Medicanja", options);
+                // this.db = await mongoose.connect(process.env.MONGODB_PROVIDER_PROD, options);
+                this.db = yield mongoose.connect(process.env.MONGODB_PROVIDER_DEV, options);
                 console.log("Connected to db");
                 // console.log(this.db)
                 return this.db;

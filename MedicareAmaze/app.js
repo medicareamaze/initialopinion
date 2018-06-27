@@ -24,6 +24,7 @@ class App {
     start() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                require('dotenv').config();
                 const vapidKeyFilePath = "./vapidKey.json";
                 var that = this;
                 //var vapidKeys = {};
@@ -53,8 +54,7 @@ class App {
                 console.log(vapidKeys.publicKey);
                 const app = express();
                 // Setup Express Server
-                //app.listen(process.env.port || process.env.PORT || 8080, '::', () => {
-                app.listen(8089, '::', () => {
+                app.listen(+process.env.port || +process.env.PORT || 8080, '::', () => {
                     console.log('Server Up Now');
                 });
                 //Connect MedicareDB Data base and get agencies
@@ -144,6 +144,9 @@ class App {
                                         "name": message.user.name,
                                         "email": '',
                                         "mobileNumber": '',
+                                        "mobileToken": '',
+                                        "mobileNumberVerified": false,
+                                        "mobileNumberVerifiedTime": new Date().toISOString(),
                                         "landLine": '',
                                         "zip": '',
                                         "dateOfBirth": '1950-01-01',
@@ -246,9 +249,8 @@ class App {
                     // session.message.user.name == undefined ? false : session.message.user.name.startsWith("Agent");
                     session.userData.isAgent;
                     handoff.setup(bot, app, isAgent, {
-                        // mongodbProvider: process.env.MONGODB_PROVIDER,
-                        mongodbProvider: "",
-                        //    mongodbProvider: "mongodb://localhost:27017/Medicanja",
+                        // mongodbProvider: process.env.MONGODB_PROVIDER_PROD,
+                        mongodbProvider: process.env.MONGODB_PROVIDER_DEV,
                         directlineSecret: agency.directLineSecret,
                         textAnalyticsKey: process.env.CG_SENTIMENT_KEY,
                         appInsightsInstrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY,
@@ -289,8 +291,8 @@ class App {
                 //twilio call
                 app.get('/api/twiliocall/phone/:phone', (req, res, next) => {
                     try {
-                        const accountSid = '';
-                        const authToken = '';
+                        const accountSid = process.env.twilio_sid;
+                        const authToken = process.env.twilio_token;
                         const client = new twilio_1.Twilio(accountSid, authToken);
                         const MODERATOR = '';
                         var callphone = req.params.phone;
@@ -300,7 +302,7 @@ class App {
                                 .create({
                                 url: 'http://demo.twilio.com/docs/voice.xml',
                                 to: callphone,
-                                from: '+19493972864'
+                                from: ''
                             })
                                 .then(call => console.log(call.sid))
                                 .done();
@@ -310,8 +312,6 @@ class App {
                         //});
                         // Download the helper library from https://www.twilio.com/docs/node/install
                         // Your Account Sid and Auth Token from twilio.com/console
-                        //const accountSid = 'AC701f6a1011e78f6e70eb2983b5ac4660-Test';
-                        //const authToken = '06d16af60fc808397c6c4f71d90f7da4-Test';
                         //const client = require('twilio')(accountSid, authToken);
                         //+1949397286400
                         //client.messages
@@ -465,21 +465,25 @@ function getCustomTypeHandlers() {
         },
         {
             name: 'sendRegistrationMobileCode',
-            execute: (session, next, data) => {
+            execute: (session, next, data) => __awaiter(this, void 0, void 0, function* () {
+                var diag = new Diagnose_1.default();
+                var result = yield diag.sendMobileCodeAndUpdateLead(session);
                 return next();
-            }
+            })
         },
         {
             name: 'validateMobileCode',
-            execute: (session, next, data) => {
+            execute: (session, next, data) => __awaiter(this, void 0, void 0, function* () {
+                var diag = new Diagnose_1.default();
+                var result = yield diag.verifyMobileCodeAndUpdateLead(session);
                 return next();
-            }
+            })
         },
         {
             name: 'initialSymptomsProcess',
             execute: (session, next, data) => __awaiter(this, void 0, void 0, function* () {
                 var diag = new Diagnose_1.default();
-                var riskfactors = yield diag.initialSymptomsProcess(session);
+                var result = yield diag.initialSymptomsProcess(session);
                 return next();
             })
         },
@@ -487,7 +491,7 @@ function getCustomTypeHandlers() {
             name: 'initiateDiagnosisInterview',
             execute: (session, next, data) => __awaiter(this, void 0, void 0, function* () {
                 var diag = new Diagnose_1.default();
-                var riskfactors = yield diag.initiateDiagnosis(session);
+                var result = yield diag.initiateDiagnosis(session);
                 return next();
             })
         },
@@ -555,5 +559,5 @@ function loadHandler(handler) {
 //    handoff.triggerHandoff(session);
 //}).triggerAction({
 //    matches: /^agent/i,
-//}); 
+//});
 //# sourceMappingURL=app.js.map

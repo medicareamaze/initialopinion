@@ -20,16 +20,11 @@
     "node-fetch": "^2.1.2",
     "node-rest-client": "^3.1.0",
     "planout": "^4.0.0",
-<<<<<<< HEAD
-    "typescript": "^2.9.2",
-    "web-push": "^3.3.1"
-=======
     "twilio": "^3.17.3",
     "typed-rest-client": "^1.0.7",
     "typescript": "^2.7.2",
     "uniqid": "^5.0.3",
     "web-push": "^3.3.0"
->>>>>>> 01711004f09475ca3bcdd3c48103ade3566549ba
   },
   "scripts": {
     "postinstall": "tsc -p ./",

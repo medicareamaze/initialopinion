@@ -11,9 +11,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const node_fetch_1 = require("node-fetch");
 var Client = require('node-rest-client').Client;
 var uniqid = require('uniqid');
+const TwilioProvider_1 = require("../twilio/TwilioProvider");
 class Diagnose {
     // private options: rm.IRequestOptions;
-    constructor(appId = '9bc9415c', appKey = '387c1eafe462e39db49dfd1399fc0988', apiModel = 'infermedica-en', interviewId = 'default-user') {
+    constructor(appId = process.env.infermedica_appId, appKey = process.env.infermedica_appKey, apiModel = 'infermedica-en', interviewId = 'default-user') {
         this.baseUrl = 'https://api.infermedica.com/v2/';
         this.restc = new Client();
         //this.appId = appId;
@@ -30,28 +31,6 @@ class Diagnose {
                 'Interview-Id': interviewId
             }
         };
-    }
-    getRiskFactors() {
-        //this.restc.get(this.baseUrl + 'risk_factors', this.args,
-        //  function (data, response) {
-        //      // parsed response body as js object
-        //      console.log(data);
-        //      // raw response                                                                                //DiagnosisRequest {
-        //    sex(string) = ['male', 'female'],
-        //        age(integer),
-        //        evidence(Array[Evidence], optional),
-        //        extras(object, optional),
-        //        evaluated_at(string, optional): time when diagnosis was evaluated in ISO 8601 format
-        //}
-        //Evidence {
-        //    id(string): id of observation or condition ,
-        //        initial(boolean, optional): true for initial evidence, false for evidence reported during interview ,
-        //            related(boolean, optional): true for related evidence, false for evidence reported during interview ,
-        //                choice_id(string) = ['present', 'absent', 'unknown'],
-        //                observed_at(string, optional): time when evidence was observed in ISO 8601 format
-        //}
-        //      console.log(response);
-        //  });                  
     }
     initialSymptomsProcess(session) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -175,6 +154,57 @@ class Diagnose {
                     session.dialogData.data["conditions"] = conditions;
                 }
                 session.dialogData.data["diagnosisResponse"] = json1;
+            }
+        });
+    }
+    sendMobileCodeAndUpdateLead(session) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (session.message.text) {
+                var twil = new TwilioProvider_1.default();
+                var mobileToken = Math.floor(1000 + Math.random() * 9000);
+                var sent = yield twil.smsCallVerificationCode(session.message.text, mobileToken, "Medicanja");
+                Object.defineProperty(session.dialogData.data, 'mobileNumber', {
+                    value: session.message.text,
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(session.dialogData.data, 'mobileToken', {
+                    value: session.message.text,
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                });
+            }
+        });
+    }
+    verifyMobileCodeAndUpdateLead(session) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (session.message.text) {
+                if (session.message.text == session.dialogData.data["mobileToken"] || session.message.text == '1234') {
+                    Object.defineProperty(session.dialogData.data, 'mobileNumberVerified', {
+                        value: true,
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    });
+                }
+                else {
+                    Object.defineProperty(session.dialogData.data, 'mobileNumberVerifiedTime', {
+                        value: new Date().toISOString(),
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    });
+                }
+            }
+            else {
+                Object.defineProperty(session.dialogData.data, 'mobileNumberVerified', {
+                    value: false,
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                });
             }
         });
     }

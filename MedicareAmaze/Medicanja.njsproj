@@ -65,6 +65,9 @@
     </Content>
     <Content Include="Dockerfile" />
     <None Include="Medicanja.pubxml" />
+    <Content Include=".env">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\index.html">
       <SubType>Code</SubType>
     </Content>
@@ -76,8 +79,10 @@
     <TypeScriptCompile Include="diagnosis\Diagnose.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="salesCrm.ts" />
     <TypeScriptCompile Include="Experiments.ts" />
+    <TypeScriptCompile Include="twilio\TwilioProvider.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bots\lead\" />
