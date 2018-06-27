@@ -291,7 +291,7 @@ class App {
 
                 handoff.setup(bot, app, isAgent, {
                     // mongodbProvider: process.env.MONGODB_PROVIDER_PROD,
-                    mongodbProvider: process.env. MONGODB_PROVIDER_DEV,
+                    mongodbProvider: process.env.MONGODB_PROVIDER_DEV,
                     directlineSecret: agency.directLineSecret,
                     textAnalyticsKey: process.env.CG_SENTIMENT_KEY,
                     appInsightsInstrumentationKey: process.env.APPINSIGHTS_INSTRUMENTATIONKEY,
