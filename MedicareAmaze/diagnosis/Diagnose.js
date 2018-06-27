@@ -176,13 +176,13 @@ class Diagnose {
                     configurable: true
                 });
                 Object.defineProperty(session.dialogData.data, 'mobileToken', {
-                    value: session.message.text,
+                    value: mobileToken,
                     writable: true,
                     enumerable: true,
                     configurable: true
                 });
                 Object.defineProperty(session.userData, 'mobileToken', {
-                    value: session.message.text,
+                    value: mobileToken,
                     writable: true,
                     enumerable: true,
                     configurable: true
