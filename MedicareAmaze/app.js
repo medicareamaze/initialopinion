@@ -76,7 +76,8 @@ class App {
                     bot.set('persistConversationData', true);
                     const intents = new builder.IntentDialog();
                     bot.dialog('/', intents);
-                    intents.matches(/^(help|hi|hello)/i, [
+                    //intents.matches(/^(help|hi|hello)/i, [
+                    intents.matches(/.*/i, [
                         session => {
                             session.send('Hi, Welcome to Initial Opinion - your free initial diagnosis tool');
                             bot.beginDialog(session.message.address, '/diagnosis');
