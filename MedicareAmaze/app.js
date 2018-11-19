@@ -69,11 +69,11 @@ class App {
                     });
                     const bot = new builder.UniversalBot(connector);
                     //bot.set("storage", new MongoDbBotStorage(new MongoDBStorageClient({ db })));
-                    bot.set("storage", new mongo_bot_storage_1.MongoDbBotStorage(new mongo_bot_storage_1.MongoDBStorageClient({
-                        url: process.env.MONGODB_PROVIDER_DEV,
-                        mongoOptions: {}
-                    })));
-                    bot.set('persistConversationData', true);
+                    // bot.set("storage", new mongo_bot_storage_1.MongoDbBotStorage(new mongo_bot_storage_1.MongoDBStorageClient({
+                    //     url: process.env.MONGODB_PROVIDER_DEV,
+                    //     mongoOptions: {}
+                    // })));
+                    // bot.set('persistConversationData', true);
                     const intents = new builder.IntentDialog();
                     bot.dialog('/', intents);
                     //intents.matches(/^(help|hi|hello)/i, [
