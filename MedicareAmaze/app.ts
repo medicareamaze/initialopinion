@@ -3,6 +3,7 @@ import { Twilio } from 'twilio';
 import * as builder from 'botbuilder';
 import * as handoff from 'botbuilder-handoff';
 import * as   GraphDialog from 'bot-graph-dialog';
+import { MongoDbBotStorage, MongoDBStorageClient } from "mongo-bot-storage";
 import * as path from 'path';
 import * as util from 'util';
 import * as fs from 'fs';
@@ -61,7 +62,7 @@ class App {
             //Connect MedicareDB Data base and get agencies
             let db = await DbClient.connect();
             let agencyBots = await db.collection("agency").find().toArray();
-
+           
             console.log(agencyBots);
             agencyBots.forEach(agency => {
                 const connector = new builder.ChatConnector({
@@ -72,7 +73,12 @@ class App {
 
 
                 const bot = new builder.UniversalBot(connector);
-
+                //bot.set("storage", new MongoDbBotStorage(new MongoDBStorageClient({ db })));
+                bot.set("storage", new MongoDbBotStorage(new MongoDBStorageClient({
+                    url: process.env.MONGODB_PROVIDER_DEV,
+                    mongoOptions: {}
+                })));
+                bot.set('persistConversationData', true);
                 const intents = new builder.IntentDialog();
                 bot.dialog('/', intents);
 

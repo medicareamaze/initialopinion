@@ -13,6 +13,7 @@ const twilio_1 = require("twilio");
 const builder = require("botbuilder");
 const handoff = require("botbuilder-handoff");
 const GraphDialog = require("bot-graph-dialog");
+const mongo_bot_storage_1 = require("mongo-bot-storage");
 const path = require("path");
 const fs = require("fs");
 const webPush = require("web-push");
@@ -67,6 +68,12 @@ class App {
                         appPassword: agency.password
                     });
                     const bot = new builder.UniversalBot(connector);
+                    //bot.set("storage", new MongoDbBotStorage(new MongoDBStorageClient({ db })));
+                    bot.set("storage", new mongo_bot_storage_1.MongoDbBotStorage(new mongo_bot_storage_1.MongoDBStorageClient({
+                        url: process.env.MONGODB_PROVIDER_DEV,
+                        mongoOptions: {}
+                    })));
+                    bot.set('persistConversationData', true);
                     const intents = new builder.IntentDialog();
                     bot.dialog('/', intents);
                     intents.matches(/^(help|hi|hello)/i, [
