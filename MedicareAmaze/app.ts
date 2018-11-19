@@ -74,11 +74,11 @@ class App {
 
                 const bot = new builder.UniversalBot(connector);
                 //bot.set("storage", new MongoDbBotStorage(new MongoDBStorageClient({ db })));
-                bot.set("storage", new MongoDbBotStorage(new MongoDBStorageClient({
-                    url: process.env.MONGODB_PROVIDER_DEV,
-                    mongoOptions: {}
-                })));
-                bot.set('persistConversationData', true);    
+                // bot.set("storage", new MongoDbBotStorage(new MongoDBStorageClient({
+                //     url: process.env.MONGODB_PROVIDER_DEV,
+                //     mongoOptions: {}
+                // })));
+                // bot.set('persistConversationData', true);    
                 const intents = new builder.IntentDialog();
                 bot.dialog('/', intents);
 
