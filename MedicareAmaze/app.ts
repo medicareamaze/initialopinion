@@ -52,6 +52,7 @@ class App {
             console.log(vapidKeys.publicKey);
 
             const app = express();
+            
             // Setup Express Server
              app.listen(+process.env.port || +process.env.PORT || 8080, '::', () => {                 
                 console.log('Server Up Now');      
