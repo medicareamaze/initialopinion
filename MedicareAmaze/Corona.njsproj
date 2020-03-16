@@ -3,10 +3,10 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <Name>Medicanja</Name>
+    <Name>Corona</Name>
     <RootNamespace>MedicareAmaze</RootNamespace>
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
-    <NameOfLastUsedPublishProfile>Medicanja</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>coronabotapi - Web Deploy</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -63,6 +63,11 @@
     <Content Include="bot\scenarios\router.json">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="web.config">
+      <SubType>Code</SubType>
+    </Content>
+    <None Include="coronabotapi - Web Deploy.pubxml" />
+    <None Include="coronabotapi - FTP.pubxml" />
     <Content Include="Dockerfile" />
     <None Include="Medicanja.pubxml" />
     <Content Include=".env">

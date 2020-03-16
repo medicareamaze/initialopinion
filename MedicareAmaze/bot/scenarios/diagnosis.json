@@ -10,10 +10,8 @@
       "type": "heroCard",
       "data": {
         "title": "Initial Opinion",
-        "text": "Hey There! I will ask you a sereis of questions and based on your responses and my artificial intelligence, I will provide you an initial dignosis and recommend doctors! You can remotely connect with the doctor of your choice  using our awesome mobile app - Doctor On Call!",
-        "images": [
-          "https://www.hcd.com/wp-content/uploads/2017/07/diagnosis.png"
-        ]
+        "text": "Hi There! I am prof. Winston Davidson, MD. My artificially intelligent bot will ask you a sereis of questions and based on your responses, it will provide you a pre-diagnosis and recommend teh next steps. It can also help you screen for the **Corona Virus Infection**"
+
       }
     },
 
@@ -60,6 +58,105 @@
       }
     },
     {
+      "id": "s_98",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you have fever?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "s_105",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you have dry cough?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "s_2100",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you feel tired and weak?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "s_526",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "When you cough, do you produce yellow or green sputum?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "s_1462",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you have shortness of breath?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "s_252",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you have sore throat?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "s_21",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you have headache?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "s_81",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you have chills?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "s_8",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you have  diarrhea?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "s_156",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you have vomiting?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "s_11",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you cough up  blood or blood-stained mucus?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
       "id": "p_8",
       "type": "prompt",
       "data": {
@@ -78,39 +175,49 @@
       }
     },
     {
-      "id": "p_10",
+      "id": "p_178",
       "type": "prompt",
       "data": {
         "type": "choice",
-        "text": "Do you have high cholesterol?",
+        "text": "Do you have or did you ever have Cancer?",
         "options": [ "Yes", "No", "Dont Know" ]
       }
     },
     {
-      "id": "p_28",
+      "id": "z_101",
       "type": "prompt",
       "data": {
         "type": "choice",
-        "text": "Do you smoke tobacco?",
+        "text": "Do you have heart diseases?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+
+    {
+      "id": "z_102",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you have chronic respiratory disease?",
         "options": [ "Yes", "No", "Dont Know" ]
       }
     },
     {
-      "id": "p_69",
+      "id": "casual_contact",
       "type": "prompt",
       "data": {
         "type": "choice",
-        "text": "Do you use marijuana?",
-        "options": [ "Yes", "No", "Dont Know" ]
+        "text": "Have you made any casual contact with any one with the coronavirus?",
+        "options": [ "Yes", "No" ]
       }
     },
     {
-      "id": "p_147",
+      "id": "close_contact",
       "type": "prompt",
       "data": {
         "type": "choice",
-        "text": "Did you suffer from any physical injuries recently?",
-        "options": [ "Yes", "No", "Dont Know" ]
+        "text": "Have you made close contact with anyone with the coronavirus?",
+        "options": [ "Yes", "No" ]
       }
     },
     {
@@ -118,7 +225,7 @@
       "type": "prompt",
       "data": {
         "type": "text",
-        "text": "How do you feel? What is your complaint? \n You can enter phrases like **I have headache and body pain** "
+        "text": "How do you feel?  \n You can enter phrases like **I have headache and body pain** "
       }
     },
     {
@@ -188,33 +295,7 @@
                         }
                       }
                     },
-                    {
-                      "id": "customTypeSendMobileCode",
-                      "type": "sendRegistrationMobileCode",
-                      "data": { "mobileNumber": "<%mobileNumber%>" }
-                    },
-                    {
-                      "id": "validationCode",
-                      "type": "prompt",
-                      "data": {
-                        "type": "number",
-                        "text": "Please enter the 4 digit validation code that was texted to <%mobileNumber%>",
-                        "validation": {
-                          "type": "regex",
-                          "setup": {
-                            "pattern": "[0-9]{4}"
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "id": "customTypevalidateMobileCode",
-                      "type": "validateMobileCode",
-                      "data": {
-                        "mobileNumber": "<%mobileNumber%>",
-                        "validationCode": "<%validationCode%>"
-                      }
-                    },
+                   
 
                     {
                       "id": "luisretry.true",

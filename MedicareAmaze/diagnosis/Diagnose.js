@@ -66,7 +66,7 @@ class Diagnose {
             evidences.push(bmiEvidence);
             try {
                 for (var prop in session.dialogData.data) {
-                    if (session.dialogData.data[prop] && ["p_8", "p_9", "p_10", "p_28", "p_69", "p_147"].indexOf(prop) > 0) {
+                    if (session.dialogData.data[prop] && ["s_526", "s_1462", "s_252", "s_21", "s_81", "s_8", "s_156", "s_11", "p_8", "p_9", "p_178"].indexOf(prop) > 0) {
                         var evidenceValue = "unknown";
                         if (session.dialogData.data[prop] == "Yes")
                             evidenceValue = "present";
@@ -94,7 +94,7 @@ class Diagnose {
             if (age <= 0)
                 age = 25.0;
             var diagnosisRequestPayload = {
-                age: age,
+                age: Math.round(age),
                 sex: session.dialogData.data.gender,
                 evidence: evidences,
                 extras: {
@@ -105,6 +105,7 @@ class Diagnose {
             session.userData["diagnosisRequestPayload"] = diagnosisRequestPayload;
             const res = yield node_fetch_1.default(this.baseUrl + 'diagnosis', { method: 'POST', body: JSON.stringify(this.args.data), headers: this.args.headers });
             const json = yield res.json();
+            console.log(json);
             session.userData["diagnosisResponse"] = json;
             if (session.dialogData.data) {
                 session.dialogData.data["should_stop"] = false;
@@ -118,7 +119,7 @@ class Diagnose {
                 session.dialogData.data["diagnosis_id"] = json.question.items[0].id;
                 session.dialogData.data["diagnosisResponse"] = json;
             }
-            console.log(json);
+            // console.log(json);
         });
     }
     processDiagnosis(session) {
@@ -147,7 +148,25 @@ class Diagnose {
                     session.dialogData.data["diagnosis_id"] = json1.question.items[0].id;
                 }
                 else {
-                    var conditions = "You may have the following conditions. Contact a medical doctor immediately. \n\n";
+                    var coronaSymptomCount = 0;
+                    var coronRiskCount = 0;
+                    for (var prop in session.dialogData.data) {
+                        if (session.dialogData.data[prop] && ["s_526", "s_1462", "s_252", "s_21", "s_81", "s_8", "s_156", "s_11"].indexOf(prop) > 0) {
+                            if (session.dialogData.data[prop] == "Yes")
+                                coronaSymptomCount++;
+                        }
+                        if (session.dialogData.data[prop] && ["p_8", "p_9", "p_178", "z_101", "z_102"].indexOf(prop) > 0) {
+                            if (session.dialogData.data[prop] == "Yes")
+                                coronRiskCount++;
+                        }
+                    }
+                    var coronaMessage = "";
+                    if (coronaSymptomCount >= 2)
+                        coronaMessage = "There is high probabality that you may be infected with the **Corona Virus**. Contact a Medical facility Immediately";
+                    var conditions = "";
+                    if (coronaMessage != "")
+                        conditions += "**CORONA VIRUS ALERT**\n\n" + coronaMessage + "\n\n";
+                    conditions += "You may have the following conditions. Contact a medical doctor immediately. \n\n";
                     json1.conditions.forEach(condition => {
                         conditions += "**" + condition.common_name + "** with a probability of **" + Number((condition.probability * 100).toFixed(2)) + "** percenage. \n";
                     });
