@@ -86,7 +86,7 @@ class App {
                 //intents.matches(/^(help|hi|hello)/i, [
                 intents.matches(/.*/i, [
                     session => {
-                        session.send('Hi, Welcome to Initial Opinion - your free initial diagnosis tool');
+                        session.send('Hi, Welcome to your free medical diagnostic screening.');
                         bot.beginDialog(session.message.address, '/diagnosis');
                     }
                 ]);
@@ -94,7 +94,7 @@ class App {
                     if (message.membersAdded) {
                         message.membersAdded.forEach(function (identity) {
                             if (identity.id === message.address.bot.id) {
-                                if (message.address.channelId != 'directline') {
+                                if (message.address.channelId != 'directline1') {
                                      var luisExperiment = new LUISExperiment({ userID: message.user.id, agencyID: agency.agencyId, sessionID: message.address.id},db);                                
 
                                      //console.log("User " + message.user.id + " has foo param set to " + luisExperiment.get('welcome-dialog'));

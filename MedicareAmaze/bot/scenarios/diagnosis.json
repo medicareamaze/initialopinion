@@ -9,8 +9,8 @@
       "id": "welcomeCard",
       "type": "heroCard",
       "data": {
-        "title": "Initial Opinion",
-        "text": "Hi There! I am prof. Winston Davidson, MD. My artificially intelligent bot will ask you a sereis of questions and based on your responses, it will provide you a pre-diagnosis and recommend teh next steps. It can also help you screen for the **Corona Virus Infection**"
+        "title": "Welcome to DOC Bot",
+        "text": "Hi There! I am Prof. Winston Davidson, Medical Doctor. My artificially intelligent bot will ask you a series of questions and based on your responses, it will provide you a pre-diagnosis and recommend the next steps. It can also help you screen for the **Corona Virus Infection**"
 
       }
     },
@@ -208,7 +208,7 @@
       "data": {
         "type": "choice",
         "text": "Have you made any casual contact with any one with the coronavirus?",
-        "options": [ "Yes", "No" ]
+        "options": [ "Yes", "No" ,"Dont Know"]
       }
     },
     {
@@ -217,7 +217,7 @@
       "data": {
         "type": "choice",
         "text": "Have you made close contact with anyone with the coronavirus?",
-        "options": [ "Yes", "No" ]
+        "options": [ "Yes", "No","Dont Know" ]
       }
     },
     {
@@ -225,7 +225,7 @@
       "type": "prompt",
       "data": {
         "type": "text",
-        "text": "How do you feel?  \n You can enter phrases like **I have headache and body pain** "
+        "text": "Do you have any other complaints?  \n You can enter phrases like **I have headache and body pain** "
       }
     },
     {

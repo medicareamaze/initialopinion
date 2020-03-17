@@ -192,10 +192,10 @@ export default  class Diagnose {
 
                       }
                      var coronaMessage = "";
-                     if (coronaSymptomCount >= 2) coronaMessage = "There is high probabality that you may be infected with the **Corona Virus**. Contact a Medical facility Immediately";
+                     if (coronaSymptomCount >= 2) coronaMessage = "You may be infected with the **Corona Virus**. Call 888 ONE LOVE (888 663 5683) immediately \n\n";
                      var conditions = ""
                      if (coronaMessage != "") conditions += "**CORONA VIRUS ALERT**\n\n" + coronaMessage + "\n\n";
-                     conditions += "You may have the following conditions. Contact a medical doctor immediately. \n\n";
+                     conditions += "You may have the following conditions. Contact a Medical Doctor immediately \n\n";
                      json1.conditions.forEach(condition => {
                          conditions += "**" + condition.common_name + "** with a probability of **" + Number((condition.probability * 100).toFixed(2)) + "** percenage. \n";
 
