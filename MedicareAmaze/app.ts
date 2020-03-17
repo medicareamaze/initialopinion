@@ -94,7 +94,7 @@ class App {
                     if (message.membersAdded) {
                         message.membersAdded.forEach(function (identity) {
                             if (identity.id === message.address.bot.id) {
-                                if (message.address.channelId != 'directline1') {
+                                if (message.address.channelId != 'directline') {
                                      var luisExperiment = new LUISExperiment({ userID: message.user.id, agencyID: agency.agencyId, sessionID: message.address.id},db);                                
 
                                      //console.log("User " + message.user.id + " has foo param set to " + luisExperiment.get('welcome-dialog'));
@@ -185,7 +185,7 @@ class App {
                       
 
                     }                          
-                    if (message.name === "newclientconnected") {  
+                    if (message.name === "newclientconnected" || message.name === "webchat/join"  ) {  
 
                         var userData = JSON.parse(message.value);
                         var isAgent = false;
