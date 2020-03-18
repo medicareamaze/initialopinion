@@ -80,7 +80,7 @@ class App {
                     //intents.matches(/^(help|hi|hello)/i, [
                     intents.matches(/.*/i, [
                         session => {
-                            session.send('Hi, Welcome to Initial Opinion - your free initial diagnosis tool');
+                           // session.send('Hi, Welcome to  your free initial diagnosis screening ');
                             bot.beginDialog(session.message.address, '/diagnosis');
                         }
                     ]);
@@ -94,6 +94,9 @@ class App {
                                         //bot.beginDialog(message.address, luisExperiment.get('welcome-dialog'));  
                                         bot.beginDialog(message.address, '/diagnosis');
                                     }
+                                }
+                                else {
+                                    session.send('Hi, Welcome to  your free initial diagnosis screening. to begin, type START');
                                 }
                             });
                         }
