@@ -94,7 +94,7 @@ class App {
                     if (message.membersAdded) {
                         message.membersAdded.forEach(function (identity) {
                             if (identity.id === message.address.bot.id) {
-                                if (message.address.channelId != 'directline') {
+                                if (message.address.channelId != 'directline1') {
                                      var luisExperiment = new LUISExperiment({ userID: message.user.id, agencyID: agency.agencyId, sessionID: message.address.id},db);                                
 
                                      //console.log("User " + message.user.id + " has foo param set to " + luisExperiment.get('welcome-dialog'));
@@ -102,13 +102,13 @@ class App {
                                      bot.beginDialog(message.address, '/diagnosis'); 
                                 }
                             }
-                            else {
-                                session => {
-                                    session.send('Hi, Welcome to your free medical diagnostic screening.To begin chatting the the bot, type START');
+                            // else {
+                            //     session => {
+                            //         session.send('Hi, Welcome to your free medical diagnostic screening.To begin chatting the the bot, type START');
                                    
-                                }
+                            //     }
                                 
-                            }
+                            // }
                         });
                     }
                 });
