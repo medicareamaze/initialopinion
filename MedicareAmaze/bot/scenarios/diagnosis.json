@@ -14,7 +14,6 @@
 
       }
     },
-
     {
       "id": "location",
       "type": "prompt",
@@ -23,6 +22,30 @@
         "text": "Please select your country of residence",
         "options": [ "Jamaica", "USA", "India" ]
       }
+    },
+    {
+      "id": "location_state",
+      "type": "prompt",
+      "data": {
+        "type": "text",
+        "text": "Enter your state/parish"       
+       }
+    },
+    {
+      "id": "location_city",
+      "type": "prompt",
+      "data": {
+        "type": "text",
+        "text": "Enter your city/town/community"       
+       }
+    },
+    {
+      "id": "location_street",
+      "type": "prompt",
+      "data": {
+        "type": "text",
+        "text": "Enter your street and house #"       
+       }
     },
     {
       "id": "gender",
