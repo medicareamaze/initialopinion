@@ -102,6 +102,13 @@ class App {
                                      bot.beginDialog(message.address, '/diagnosis'); 
                                 }
                             }
+                            else {
+                                session => {
+                                    session.send('Hi, Welcome to your free medical diagnostic screening.To begin chatting the the bot, type START');
+                                   
+                                }
+                                
+                            }
                         });
                     }
                 });
