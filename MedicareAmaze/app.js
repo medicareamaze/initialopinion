@@ -7,7 +7,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const twilio_1 = require("twilio");
@@ -77,10 +76,12 @@ class App {
                     bot.set('persistConversationData', true);
                     const intents = new builder.IntentDialog();
                     bot.dialog('/', intents);
+                    var locationDialog = require('botbuilder-location');
+                    bot.library(locationDialog.createLibrary(process.env.BING_MAPS_API_KEY));
                     //intents.matches(/^(help|hi|hello)/i, [
                     intents.matches(/.*/i, [
                         session => {
-                           // session.send('Hi, Welcome to  your free initial diagnosis screening ');
+                            session.send('Hi, Welcome to your free medical diagnostic screening.');
                             bot.beginDialog(session.message.address, '/diagnosis');
                         }
                     ]);
@@ -88,16 +89,18 @@ class App {
                         if (message.membersAdded) {
                             message.membersAdded.forEach(function (identity) {
                                 if (identity.id === message.address.bot.id) {
-                                    if (message.address.channelId != 'directline') {
+                                    if (message.address.channelId != 'directline1') {
                                         var luisExperiment = new Experiments_1.LUISExperiment({ userID: message.user.id, agencyID: agency.agencyId, sessionID: message.address.id }, db);
                                         //console.log("User " + message.user.id + " has foo param set to " + luisExperiment.get('welcome-dialog'));
                                         //bot.beginDialog(message.address, luisExperiment.get('welcome-dialog'));  
                                         bot.beginDialog(message.address, '/diagnosis');
                                     }
                                 }
-                                else {
-                                    session.send('Hi, Welcome to  your free initial diagnosis screening. to begin, type START');
-                                }
+                                // else {
+                                //     session => {
+                                //         session.send('Hi, Welcome to your free medical diagnostic screening.To begin chatting the the bot, type START');
+                                //     }
+                                // }
                             });
                         }
                     });
@@ -174,7 +177,7 @@ class App {
                                     }
                                 }, { upsert: true, new: true });
                             }
-                            if (message.name === "newclientconnected") {
+                            if (message.name === "newclientconnected" || message.name === "webchat/join") {
                                 var userData = JSON.parse(message.value);
                                 var isAgent = false;
                                 if (!!userData.roles)
@@ -474,6 +477,26 @@ function getCustomTypeHandlers() {
                 console.log(`in custom node type handler: getExperimentVariable, variable: ${data.VariableName}, value: ${experimentValue}`);
                 return next();
             }
+        },
+        {
+            name: 'getBingLocation',
+            execute: (session, next, data) => __awaiter(this, void 0, void 0, function* () {
+                console.log(`in custom node type handler: getBingLocation, data: `);
+                var locationDialog = require('botbuilder-location');
+                locationDialog.getLocation(session, {
+                    prompt: "Type your home address.",
+                    useNativeControl: true,
+                    reverseGeocode: true,
+                    skipFavorites: true,
+                    skipConfirmationAsk: true,
+                    requiredFields: locationDialog.LocationRequiredFields.streetAddress |
+                        locationDialog.LocationRequiredFields.locality |
+                        locationDialog.LocationRequiredFields.region |
+                        locationDialog.LocationRequiredFields.postalCode |
+                        locationDialog.LocationRequiredFields.country
+                });
+                return next();
+            })
         },
         {
             name: 'sendRegistrationMobileCode',

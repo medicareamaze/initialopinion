@@ -14,6 +14,8 @@ import Experiments from "./Experiments";
 import Diagnose from "./diagnosis/Diagnose";
 
 
+
+
 class App {
     public async start() {
         try {
@@ -82,6 +84,8 @@ class App {
                 bot.set('persistConversationData', true);    
                 const intents = new builder.IntentDialog();
                 bot.dialog('/', intents);
+                var locationDialog = require('botbuilder-location');
+                bot.library(locationDialog.createLibrary(process.env.BING_MAPS_API_KEY));
 
                 //intents.matches(/^(help|hi|hello)/i, [
                 intents.matches(/.*/i, [
@@ -565,6 +569,29 @@ function getCustomTypeHandlers() {
             }
         },
         {
+            name: 'getBingLocation',
+            execute: async (session, next, data) => {
+               console.log(`in custom node type handler: getBingLocation, data: `);
+               var locationDialog = require('botbuilder-location');
+                locationDialog.getLocation(session, {
+                    prompt: "Type your home address.",
+                    useNativeControl: true,
+                    reverseGeocode: true,
+                    skipFavorites:true,
+                    skipConfirmationAsk:true,
+                    requiredFields: 
+                        locationDialog.LocationRequiredFields.streetAddress |
+                        locationDialog.LocationRequiredFields.locality |
+                        locationDialog.LocationRequiredFields.region |
+                        locationDialog.LocationRequiredFields.postalCode |
+                        locationDialog.LocationRequiredFields.country
+                });
+               
+                return next();
+            }
+        },
+       
+        {
             name: 'sendRegistrationMobileCode',
             execute: async (session, next, data) => {
                 var diag = new Diagnose();
@@ -588,6 +615,7 @@ function getCustomTypeHandlers() {
                 return next();
             }
         },
+              
         {
             name: 'initiateDiagnosisInterview',
             execute: async (session, next, data) =>  {

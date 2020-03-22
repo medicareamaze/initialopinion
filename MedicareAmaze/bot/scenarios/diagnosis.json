@@ -15,37 +15,9 @@
       }
     },
     {
-      "id": "location",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Please select your country of residence",
-        "options": [ "Jamaica", "USA", "India" ]
-      }
-    },
-    {
-      "id": "location_state",
-      "type": "prompt",
-      "data": {
-        "type": "text",
-        "text": "Enter your state/parish"       
-       }
-    },
-    {
-      "id": "location_city",
-      "type": "prompt",
-      "data": {
-        "type": "text",
-        "text": "Enter your city/town/community"       
-       }
-    },
-    {
-      "id": "location_street",
-      "type": "prompt",
-      "data": {
-        "type": "text",
-        "text": "Enter your street and house #"       
-       }
+      "id": "locationBingRequest",
+      "type": "getBingLocation",
+      "data": { "mobileNumber": "<%mobileNumber%>" }
     },
     {
       "id": "gender",
@@ -65,6 +37,332 @@
       }
     },
     {
+      "id": "s_98",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you have fever?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "s_105",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you have cough?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+    {
+      "id": "s_1462",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Do you have shortness of breath?",
+        "options": [ "Yes", "No", "Dont Know" ]
+      }
+    },
+   
+    {
+      "id": "CovidTemperature",
+      "type": "sequence",
+      "scenarios": [
+        {
+          "condition": "s_98 == 'Yes'  && !(s_98 == 'Yes' && s_1462== 'Yes')",
+          "steps": [
+            {
+              "id": "temparature",
+             
+              "type": "prompt",
+              "data": {
+                "type": "choice",
+                "text": "How high is your fever? Is your temparature greater than 99.5 F?",
+                "options": [ "Yes", "No", "Dont Know. I havent taken my temperature" ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "additionalCovidSymptoms",
+      "type": "sequence",
+      "scenarios": [
+        {
+          "condition": " (s_98 == 'Yes' || s_1462 == 'Yes' || s_105 == 'Yes') && !(s_98 == 'Yes' && s_1462== 'Yes') ",
+          "steps": [
+            {
+              "id": "symptoms_worse",
+             
+              "type": "prompt",
+              "data": {
+                "type": "choice",
+                "text": "Are your symptoms worsening rapidly",
+                "options": [ "Yes", "No", "Dont Know" ]
+              }
+            },
+            {
+              "id": "breathing_fast",             
+              "type": "prompt",
+              "data": {
+                "type": "choice",
+                "text": "Are your breathing very fast?",
+                "options": [ "Yes", "No", "Dont Know" ]
+              }
+            },
+            {
+              "id": "cough_blood",             
+              "type": "prompt",
+              "data": {
+                "type": "choice",
+                "text": "Are your coughing up blood?",
+                "options": [ "Yes", "No", "Dont Know" ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "secondaryCovidSymptoms",
+      "type": "sequence",
+      "scenarios": [
+        {
+          "condition": "(!(temparature == 'Yes' || symptoms_worse == 'Yes' || cough_blood == 'Yes' || breathing_fast == 'Yes' ) && !(s_98 == 'Yes' && s_1462== 'Yes')) || !(s_98 == 'Yes' || s_1462== 'Yes' || s_105=='Yes')",
+          "steps": [
+            {
+              "id": "secondaryCovidSynptomOptions",
+             
+              "type": "prompt",
+              "data": {
+                "type": "choice",
+                "text": "Do you have any of the following symptoms? \n Feeling of weakness or Tiredness \n Muscle Pain \n Chills \n Headache \n Diarrhea \n Nausea \n Sore throat",
+                "options": [ "Yes", "No", "Dont Know" ]
+              }
+            },
+            {
+              "id": "CovidTravel",
+              "type": "sequence",
+              "scenarios": [
+                {
+                  "condition": "s_98 == 'Yes' && s_105 == 'Yes'",
+                  "steps": [
+                    {
+                      "id": "travel",
+                     
+                      "type": "prompt",
+                      "data": {
+                        "type": "choice",
+                        "text": "Have you traveled or resided in the country of local, widespread transmission of coronavirus?",
+                        "options": [ "Yes", "No" ]
+                      }
+                    }
+
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "CovidContact",
+              "type": "sequence",
+              "scenarios": [
+                {
+                  "condition": "travel != 'Yes'",
+                  "steps": [
+                    {
+                      "id": "contact",
+                     
+                      "type": "prompt",
+                      "data": {
+                        "type": "choice",
+                        "text": "Have you had close contact with a person with suspected COVIF-19 infection in the last 14 days? By suspected, I mean a person with a confirmed COVID-19 infection, or tested for COVID-19",
+                        "options": [ "Yes", "No" ]
+                      }
+                    }
+
+                  ]
+                }
+              ]
+            }            
+          ]
+        }
+      ]
+    },
+    {
+      "id": "firstAndLastName",
+      "type": "prompt",
+      "data": {
+        "type": "text",
+        "text": "I am ready with my diagnosis for COVID-19. I just need your name and contact details\n\n. **Please enter your name**"
+      }
+    },
+    {
+      "id": "mobileNumber",
+      "type": "prompt",
+      "data": {
+        "type": "text",
+        "text": "Please enter your 10 digit mobile number including the area code.",
+        "validation": {
+          "type": "regex",
+          "setup": {
+            "pattern": "^[+]?([0-9]*[\\.\\s\\-\\(\\)]|[0-9]+){10,13}$"
+          }
+        }
+      }
+    },
+    {
+      "id": "CovidInitialDiagnosis",
+      "type": "sequence",
+      "scenarios": [
+        {
+          "condition": "(s_98 == 'Yes' && s_1462== 'Yes') || (temparature == 'Yes' || symptoms_worse == 'Yes' || cough_blood == 'Yes' || breathing_fast == 'Yes')",
+          "steps": [
+            {
+              "id": "initialCovidResult001",
+             
+              "type": "text",
+              "data": {
+                "type": "text",
+                "text": "Corona Virus Alert. Call Emergency Number. Avoid all contact"
+              }
+            }
+          ]
+        },
+       
+        {
+          "condition": "!(s_98 == 'Yes' || s_1462== 'Yes' || s_105=='Yes') && (contact == 'No') ",
+          "steps": [
+            {
+              "id": "initialCovidResult002",
+             
+              "type": "text",
+              "data": {
+                "type": "text",
+                "text": "Corona Virus Alert. Follow preventive measures"
+              }
+            }
+          ]
+        },
+        {
+          "condition": "!(s_98 == 'Yes' || s_1462== 'Yes' || s_105=='Yes') && (contact == 'Yes') ",
+          "steps": [
+            {
+              "id": "initialCovidResult003",
+             
+              "type": "text",
+              "data": {
+                "type": "text",
+                "text": "Corona Virus Alert. Quarantine Yourself"
+              }
+            }
+          ]
+        },
+        {
+          "condition": "travel=='Yes'",
+          "steps": [
+            {
+              "id": "initialCovidResult004",
+             
+              "type": "text",
+              "data": {
+                "type": "text",
+                "text": "Corona Virus Alert. Consult healthcare provider. Avoid all Contact"
+              }
+            }
+          ]
+        },
+        {
+          "condition": "(s_98 == 'Yes' || s_1462== 'Yes' || s_105=='Yes') && contact == 'Yes'",
+          "steps": [
+            {
+              "id": "initialCovidResult005",
+             
+              "type": "text",
+              "data": {
+                "type": "text",
+                "text": "Corona Virus Alert. Consult health department. Avoid all Contact"
+              }
+            }
+          ]
+        },
+        {
+          "condition": "(s_98 == 'Yes' || s_1462== 'Yes' || s_105=='Yes') && contact=='No'",
+          "steps": [
+            {
+              "id": "initialCovidResult006",
+             
+              "type": "text",
+              "data": {
+                "type": "text",
+                "text": "Corona Virus Alert. Stay home and monitor your symptoms"
+              }
+            }
+          ]
+        }
+
+      ]
+    },
+
+    {
+      "id": "continue_diagnosis",
+      "type": "sequence",
+      "steps": [
+        {
+          "id": "cont_diag",
+          "type": "prompt",
+          "data": {
+            "type": "confirm",
+            "text": "I can continue the interview and provide an enhanced diagnois report, completely free! do you want to continue?"
+          },
+          "scenarios": [
+            {
+              "condition": "cont_diag",
+              "steps": [
+                {
+                  "id": "thanks_cont",
+                  "type": "text",
+                  "data": {
+                    "type": "text",
+                    "text": "Great! Lets Continue."
+                  }
+                }
+              ]
+            },
+            {
+              "condition": "!cont_diag",
+              "steps": [
+                {
+                  "id": "sureNotContDiag",
+                  "type": "prompt",
+                  "data": {
+                    "type": "confirm",
+                    "text": "Are you sure?"
+                  },
+                  "scenarios": [
+                    {
+                      "condition": "!sureNotContDiag",
+                      "type": "text",
+                        "data": {
+                          "type": "text",
+                          "text": "Ok. Let's Continue!"
+                        }
+                    },
+                    {
+                      "condition": "sureNotContDiag",
+                      "nodeId": "welcomeCard"
+                    }
+                  ]
+                }
+                
+              ]
+            }
+          ]
+        }
+      ]
+     
+    },
+    {
       "id": "height",
       "type": "prompt",
       "data": {
@@ -80,105 +378,7 @@
         "text": "Enter your weight (in pounds)"
       }
     },
-    {
-      "id": "s_98",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Do you have fever?",
-        "options": [ "Yes", "No", "Dont Know" ]
-      }
-    },
-    {
-      "id": "s_105",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Do you have dry cough?",
-        "options": [ "Yes", "No", "Dont Know" ]
-      }
-    },
-    {
-      "id": "s_2100",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Do you feel tired and weak?",
-        "options": [ "Yes", "No", "Dont Know" ]
-      }
-    },
-    {
-      "id": "s_526",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "When you cough, do you produce yellow or green sputum?",
-        "options": [ "Yes", "No", "Dont Know" ]
-      }
-    },
-    {
-      "id": "s_1462",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Do you have shortness of breath?",
-        "options": [ "Yes", "No", "Dont Know" ]
-      }
-    },
-    {
-      "id": "s_252",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Do you have sore throat?",
-        "options": [ "Yes", "No", "Dont Know" ]
-      }
-    },
-    {
-      "id": "s_21",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Do you have headache?",
-        "options": [ "Yes", "No", "Dont Know" ]
-      }
-    },
-    {
-      "id": "s_81",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Do you have chills?",
-        "options": [ "Yes", "No", "Dont Know" ]
-      }
-    },
-    {
-      "id": "s_8",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Do you have  diarrhea?",
-        "options": [ "Yes", "No", "Dont Know" ]
-      }
-    },
-    {
-      "id": "s_156",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Do you have vomiting?",
-        "options": [ "Yes", "No", "Dont Know" ]
-      }
-    },
-    {
-      "id": "s_11",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Do you cough up  blood or blood-stained mucus?",
-        "options": [ "Yes", "No", "Dont Know" ]
-      }
-    },
+   
     {
       "id": "p_8",
       "type": "prompt",
@@ -197,52 +397,7 @@
         "options": [ "Yes", "No", "Dont Know" ]
       }
     },
-    {
-      "id": "p_178",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Do you have or did you ever have Cancer?",
-        "options": [ "Yes", "No", "Dont Know" ]
-      }
-    },
-    {
-      "id": "z_101",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Do you have heart diseases?",
-        "options": [ "Yes", "No", "Dont Know" ]
-      }
-    },
-
-    {
-      "id": "z_102",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Do you have chronic respiratory disease?",
-        "options": [ "Yes", "No", "Dont Know" ]
-      }
-    },
-    {
-      "id": "casual_contact",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Have you made any casual contact with any one with the coronavirus?",
-        "options": [ "Yes", "No" ,"Dont Know"]
-      }
-    },
-    {
-      "id": "close_contact",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Have you made close contact with anyone with the coronavirus?",
-        "options": [ "Yes", "No","Dont Know" ]
-      }
-    },
+   
     {
       "id": "complaint",
       "type": "prompt",
@@ -297,25 +452,10 @@
                   "condition": "should_stop == true",
                   "steps": [
                     {
-                      "id": "firstAndLastName",
-                      "type": "prompt",
+                      "id": "ready_diagnosis",
+                      "type": "text",
                       "data": {
-                        "type": "text",
-                        "text": "I am ready with my diagnosis. I just need your name and contact details\n\n. **Please enter your name**"
-                      }
-                    },
-                    {
-                      "id": "mobileNumber",
-                      "type": "prompt",
-                      "data": {
-                        "type": "text",
-                        "text": "Please enter your 10 digit mobile number including the area code.",
-                        "validation": {
-                          "type": "regex",
-                          "setup": {
-                            "pattern": "^[+]?([0-9]*[\\.\\s\\-\\(\\)]|[0-9]+){10,13}$"
-                          }
-                        }
+                        "text": "I am ready with my dignosis report"
                       }
                     },
                    
