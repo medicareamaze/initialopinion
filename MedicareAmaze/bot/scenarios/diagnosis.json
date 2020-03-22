@@ -15,11 +15,6 @@
       }
     },
     {
-      "id": "locationBingRequest",
-      "type": "getBingLocation",
-      "data": { "mobileNumber": "<%mobileNumber%>" }
-    },
-    {
       "id": "gender",
       "type": "prompt",
       "data": {
@@ -36,6 +31,13 @@
         "text": "Enter your date of birth (mm/dd/yyyy)"
       }
     },
+    {
+      "id": "locationBingRequest",
+      "type": "getBingLocation",
+      "data": { "mobileNumber": "<%mobileNumber%>" }
+    },
+   
+    
     {
       "id": "s_98",
       "type": "prompt",
