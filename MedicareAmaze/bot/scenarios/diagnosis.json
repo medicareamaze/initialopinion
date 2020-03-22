@@ -15,6 +15,39 @@
       }
     },
     {
+      "id": "location",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Please select your country of residence",
+        "options": [ "Jamaica", "Trinidad and Tobago", "Barbados", "Guyana"]
+      }
+    },
+    {
+      "id": "location_state",
+      "type": "prompt",
+      "data": {
+        "type": "text",
+        "text": "Enter your state/parish"       
+       }
+    },
+    {
+      "id": "location_city",
+      "type": "prompt",
+      "data": {
+        "type": "text",
+        "text": "Enter your city/town/community"       
+       }
+    },
+    {
+      "id": "location_street",
+      "type": "prompt",
+      "data": {
+        "type": "text",
+        "text": "Enter your street and house #"       
+       }
+    },
+    {
       "id": "gender",
       "type": "prompt",
       "data": {
@@ -31,12 +64,6 @@
         "text": "Enter your date of birth (mm/dd/yyyy)"
       }
     },
-    {
-      "id": "locationBingRequest",
-      "type": "getBingLocation",
-      "data": { "mobileNumber": "<%mobileNumber%>" }
-    },
-   
     
     {
       "id": "s_98",
