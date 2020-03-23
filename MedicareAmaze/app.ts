@@ -590,7 +590,14 @@ function getCustomTypeHandlers() {
                 return next();
             }
         },
-       
+        {
+            name: 'updateCovidDiagnosis',
+            execute: async (session, next, data) => {
+                session.dialogData.data["covid_label"] = data.covid_label;
+                session.dialogData.data["covid_description"] = data.covid_description;
+                return next();
+            }
+        },       
         {
             name: 'sendRegistrationMobileCode',
             execute: async (session, next, data) => {

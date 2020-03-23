@@ -15,12 +15,29 @@
       }
     },
     {
+      "id": "gender",
+      "type": "prompt",
+      "data": {
+        "type": "choice",
+        "text": "Please select your gender",
+        "options": [ "male", "female" ]
+      }
+    },
+    {
+      "id": "dob",
+      "type": "prompt",
+      "data": {
+        "type": "time",
+        "text": "Enter your date of birth (mm/dd/yyyy)"
+      }
+    },
+      {
       "id": "location",
       "type": "prompt",
       "data": {
         "type": "choice",
         "text": "Please select your country of residence",
-        "options": [ "Jamaica", "Trinidad and Tobago", "Barbados", "Guyana"]
+        "options": [ "Jamaica", "Trinidad and Tobago", "Barbados", "Guyana","USA"]
       }
     },
     {
@@ -46,23 +63,6 @@
         "type": "text",
         "text": "Enter your street and house #"       
        }
-    },
-    {
-      "id": "gender",
-      "type": "prompt",
-      "data": {
-        "type": "choice",
-        "text": "Please select your gender",
-        "options": [ "male", "female" ]
-      }
-    },
-    {
-      "id": "dob",
-      "type": "prompt",
-      "data": {
-        "type": "time",
-        "text": "Enter your date of birth (mm/dd/yyyy)"
-      }
     },
     
     {
@@ -160,16 +160,62 @@
         {
           "condition": "(!(temparature == 'Yes' || symptoms_worse == 'Yes' || cough_blood == 'Yes' || breathing_fast == 'Yes' ) && !(s_98 == 'Yes' && s_1462== 'Yes')) || !(s_98 == 'Yes' || s_1462== 'Yes' || s_105=='Yes')",
           "steps": [
-            {
-              "id": "secondaryCovidSynptomOptions",
-             
+           
+	      {
+            "id": "s_2100",
               "type": "prompt",
               "data": {
                 "type": "choice",
-                "text": "Do you have any of the following symptoms? \n Feeling of weakness or Tiredness \n Muscle Pain \n Chills \n Headache \n Diarrhea \n Nausea \n Sore throat",
+                "text": "Do you feel fatigue (tired and weak)?",
                 "options": [ "Yes", "No", "Dont Know" ]
               }
             },
+            {
+              "id": "s_252",
+              "type": "prompt",
+              "data": {
+                "type": "choice",
+                "text": "Do you have sore throat?",
+                "options": [ "Yes", "No", "Dont Know" ]
+              }
+            },
+            {
+              "id": "s_21",
+              "type": "prompt",
+              "data": {
+                "type": "choice",
+                "text": "Do you have headache?",
+                "options": [ "Yes", "No", "Dont Know" ]
+              }
+            },
+            {
+              "id": "s_81",
+              "type": "prompt",
+              "data": {
+                "type": "choice",
+                "text": "Do you have chills?",
+                "options": [ "Yes", "No", "Dont Know" ]
+              }
+            },
+            {
+              "id": "s_8",
+              "type": "prompt",
+              "data": {
+                "type": "choice",
+                "text": "Do you have  diarrhea?",
+                "options": [ "Yes", "No", "Dont Know" ]
+              }
+            },
+            {
+              "id": "s_156",
+              "type": "prompt",
+              "data": {
+                "type": "choice",
+                "text": "Do you have vomiting?",
+                "options": [ "Yes", "No", "Dont Know" ]
+              }
+            }
+	    ,
             {
               "id": "CovidTravel",
               "type": "sequence",
@@ -223,7 +269,7 @@
       "type": "prompt",
       "data": {
         "type": "text",
-        "text": "I am ready with my diagnosis for COVID-19. I just need your name and contact details\n\n. **Please enter your name**"
+        "text": "I am ready with my diagnosis for COVID-19. I just need your name and contact details.\n\n **Please enter your full name**"
       }
     },
     {
@@ -253,8 +299,13 @@
               "type": "text",
               "data": {
                 "type": "text",
-                "text": "Corona Virus Alert. Call Emergency Number. Avoid all contact"
+                "text": " **Corona Virus Alert. Call Emergency Number. Avoid all contact.** \n Your symptoms are very serious, and you may be infected with COVID-19.Call Emergency Number. Avoid all contact"
               }
+            },
+            {
+              "id": "updateCovidDiagnosis001",
+              "type": "updateCovidDiagnosis",
+              "data": { "covid_label": "Call Emergency Number. Avoid all contact.", "covid_description":"Your symptoms are very serious, and you may be infected with COVID-19.Call Emergency Number. Avoid all contact" }
             }
           ]
         },
@@ -268,8 +319,13 @@
               "type": "text",
               "data": {
                 "type": "text",
-                "text": "Corona Virus Alert. Follow preventive measures"
+                "text": " **Corona Virus Alert. Follow preventive measures.** \n Your symptoms do not suggest that you have COVID-19 infection. Keep taking the common measures to avoid getting infected."
               }
+            },            
+            {
+              "id": "updateCovidDiagnosis002",
+              "type": "updateCovidDiagnosis",
+              "data": { "covid_label": "Follow preventive measures.", "covid_description":"Your symptoms do not suggest that you have COVID-19 infection. Keep taking the common measures to avoid getting infected." }
             }
           ]
         },
@@ -282,8 +338,13 @@
               "type": "text",
               "data": {
                 "type": "text",
-                "text": "Corona Virus Alert. Quarantine Yourself"
+                "text": " **Corona Virus Alert. Quarantine Yourself.** \n Your symptoms do not suggest that you may have COVID-19 infection. However, according to WHO and CDC guidelines, it is strongly recommended that you keep yourself separated from others for the next 14 days."
               }
+            },
+            {
+              "id": "updateCovidDiagnosis003",
+              "type": "updateCovidDiagnosis",
+              "data": { "covid_label": "Quarantine Yourself.", "covid_description":"Your symptoms do not suggest that you may have COVID-19 infection. However, according to WHO and CDC guidelines, it is strongly recommended that you keep yourself separated from others for the next 14 days." }
             }
           ]
         },
@@ -296,8 +357,13 @@
               "type": "text",
               "data": {
                 "type": "text",
-                "text": "Corona Virus Alert. Consult healthcare provider. Avoid all Contact"
+                "text": " **Corona Virus Alert. Consult healthcare provider. Avoid all Contact.**\n Your symptoms are worrisome and may be related to the Coronavirus infection. Call the local COVID-19-related healthcare number. Depending on the country this may be a telephone line issued by the Ministry of Health or Health Department."
               }
+            },
+            {
+              "id": "updateCovidDiagnosis004",
+              "type": "updateCovidDiagnosis",
+              "data": { "covid_label": "Consult healthcare provider. Avoid all Contact.", "covid_description":"Your symptoms are worrisome and may be related to the Coronavirus infection. Call the local COVID-19-related healthcare number. Depending on the country this may be a telephone line issued by the Ministry of Health or Health Department." }
             }
           ]
         },
@@ -310,8 +376,13 @@
               "type": "text",
               "data": {
                 "type": "text",
-                "text": "Corona Virus Alert. Consult health department. Avoid all Contact"
+                "text": " **Corona Virus Alert. Consult health department. Avoid all Contact** \n Your symptoms are worrisome and may be related to the Coronavirus infection. Call the local COVID-19-related healthcare number. Depending on the country this may be a telephone line issued by the Ministry of Health or Health Department."
               }
+            },
+            {
+              "id": "updateCovidDiagnosis005",
+              "type": "updateCovidDiagnosis",
+              "data": { "covid_label": "Consult healthcare provider. Avoid all Contact.", "covid_description":"Your symptoms are worrisome and may be related to the Coronavirus infection. Call the local COVID-19-related healthcare number. Depending on the country this may be a telephone line issued by the Ministry of Health or Health Department." }
             }
           ]
         },
@@ -324,8 +395,13 @@
               "type": "text",
               "data": {
                 "type": "text",
-                "text": "Corona Virus Alert. Stay home and monitor your symptoms"
+                "text": " **Corona Virus Alert. Stay home and monitor your symptoms.** \n Your symptoms do not suggest that you have COVID-19 infection. Still, it is better if you recover from your illness at home. This could benefit your and other people’s safety."
               }
+            },
+            {
+              "id": "updateCovidDiagnosis006",
+              "type": "updateCovidDiagnosis",
+              "data": { "covid_label": "Stay home and monitor your symptoms.", "covid_description":"Your symptoms do not suggest that you have COVID-19 infection. Still, it is better if you recover from your illness at home. This could benefit your and other people’s safety." }
             }
           ]
         }

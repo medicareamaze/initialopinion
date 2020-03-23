@@ -499,6 +499,14 @@ function getCustomTypeHandlers() {
             })
         },
         {
+            name: 'updateCovidDiagnosis',
+            execute: (session, next, data) => __awaiter(this, void 0, void 0, function* () {
+                session.dialogData.data["covid_label"] = data.covid_label;
+                session.dialogData.data["covid_description"] = data.covid_description;
+                return next();
+            })
+        },
+        {
             name: 'sendRegistrationMobileCode',
             execute: (session, next, data) => __awaiter(this, void 0, void 0, function* () {
                 var diag = new Diagnose_1.default();

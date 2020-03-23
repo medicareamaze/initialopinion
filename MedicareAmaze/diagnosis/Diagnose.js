@@ -148,24 +148,11 @@ class Diagnose {
                     session.dialogData.data["diagnosis_id"] = json1.question.items[0].id;
                 }
                 else {
-                    var coronaSymptomCount = 0;
-                    var coronRiskCount = 0;
-                    for (var prop in session.dialogData.data) {
-                        if (session.dialogData.data[prop] && ["s_526", "s_1462", "s_252", "s_21", "s_81", "s_8", "s_156", "s_11"].indexOf(prop) > 0) {
-                            if (session.dialogData.data[prop] == "Yes")
-                                coronaSymptomCount++;
-                        }
-                        if (session.dialogData.data[prop] && ["p_8", "p_9", "p_178", "z_101", "z_102"].indexOf(prop) > 0) {
-                            if (session.dialogData.data[prop] == "Yes")
-                                coronRiskCount++;
-                        }
-                    }
                     var coronaMessage = "";
-                    if (coronaSymptomCount >= 2)
-                        coronaMessage = "You may be infected with the **Corona Virus**. Call 888 ONE LOVE (888 663 5683) immediately \n\n";
+                    coronaMessage = session.dialogData.data["covid_description"];
                     var conditions = "";
                     if (coronaMessage != "")
-                        conditions += "**CORONA VIRUS ALERT**\n\n" + coronaMessage + "\n\n";
+                        conditions += "**CORONA VIRUS ALERT-" + session.dialogData.data["covid_label"] + "**\n\n" + coronaMessage + "\n\n";
                     conditions += "You may have the following conditions. Contact a Medical Doctor immediately \n\n";
                     json1.conditions.forEach(condition => {
                         conditions += "**" + condition.common_name + "** with a probability of **" + Number((condition.probability * 100).toFixed(2)) + "** percenage. \n";
