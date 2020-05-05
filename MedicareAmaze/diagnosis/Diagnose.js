@@ -84,14 +84,14 @@ class Diagnose {
             }
             var age = 0;
             try {
-                var dob = new Date(Date.parse(session.dialogData.data.dob));
+                var dob = new Date(Date.parse(session.dialogData.data.dateOfBirth));
                 var currentDate = new Date();
-                age = (new Date().valueOf() - new Date(Date.parse(session.dialogData.data.dob)).valueOf()) / (1000 * 60 * 60 * 24 * 365);
+                age = (new Date().valueOf() - new Date(Date.parse(session.dialogData.data.dateOfBirth)).valueOf()) / (1000 * 60 * 60 * 24 * 365);
             }
             catch (e) {
                 console.log('Date error - Defaulting to 25');
             }
-            if (age <= 0)
+            if (age <= 0 || isNaN(age))
                 age = 25.0;
             var diagnosisRequestPayload = {
                 age: Math.round(age),
