@@ -155,7 +155,7 @@ class Diagnose {
                         conditions += "**CORONA VIRUS ALERT-" + session.dialogData.data["covid_label"] + "**\n\n" + coronaMessage + "\n\n";
                     conditions += "You may have the following conditions. Contact a Medical Doctor immediately \n\n";
                     json1.conditions.forEach(condition => {
-                        conditions += "**" + condition.common_name + "** with a probability of **" + Number((condition.probability * 100).toFixed(2)) + "** percenage. \n";
+                        conditions += "**" + condition.common_name + "** with a probability of **" + Number((condition.probability * 100).toFixed(2)) + "** percentage. \n";
                     });
                     session.dialogData.data["conditions"] = conditions;
                 }

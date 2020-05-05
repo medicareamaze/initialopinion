@@ -24,7 +24,7 @@
       }
     },
     {
-      "id": "dob",
+      "id": "dateOfBirth",
       "type": "prompt",
       "data": {
         "type": "time",
@@ -265,7 +265,7 @@
       ]
     },
     {
-      "id": "firstAndLastName",
+      "id": "name",
       "type": "prompt",
       "data": {
         "type": "text",
@@ -592,7 +592,7 @@
           "type": "prompt",
           "data": {
             "type": "confirm",
-            "text": "Do you want to Chat with a Doc?"
+            "text": "Do you want to Chat with a Doctor?"
           },
           "scenarios": [
             {
@@ -603,7 +603,7 @@
                   "type": "prompt",
                   "data": {
                     "type": "time",
-                    "text": "What's the best time for the docor to call you today?"
+                    "text": "What's the best time for the doctor to call you today?"
                   }
                 },
                 {
