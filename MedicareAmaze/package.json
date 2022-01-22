@@ -20,7 +20,7 @@
     "dotenv": "^6.1.0",
     "express": "^4.16.3",
     "mongo-bot-storage": "0.0.4",
-    "node-fetch": "^2.1.2",
+    "node-fetch": "^3.1.1",
     "node-rest-client": "^3.1.0",
     "planout": "^4.0.0",
     "twilio": "^3.17.3",
